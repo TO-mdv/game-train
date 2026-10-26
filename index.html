@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="de-CH">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Zug-Spass">
+<meta name="apple-mobile-web-app-title" content="Train Fun">
 <meta name="theme-color" content="#e2001a">
-<title>Zug-Spass Schweiz</title>
+<title>Train Fun Switzerland</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%86%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 #home{align-items:center;padding-bottom:0}
 .hometop{width:100%;display:flex;align-items:center;justify-content:space-between;flex:none}
 .hometop .tools{display:flex;gap:12px}
-.hometop .spacer{width:148px}
+.hometop .spacer{width:228px}
 h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-align:center;line-height:1.05;
   text-shadow:0 4px 0 var(--red),0 9px 18px rgba(0,0,0,.18)}
 .modes{flex:1;width:100%;max-width:1100px;display:grid;grid-template-columns:1fr 1fr;gap:3vmin;align-content:center;min-height:0}
@@ -71,7 +71,7 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 /* Find */
 .prompt{flex:1;display:flex;align-items:center;justify-content:center;gap:14px;font-size:clamp(24px,5vmin,52px);font-weight:600;text-align:center;min-width:0}
 .prompt b{color:var(--red)}
-.stars{display:flex;gap:2px;font-size:clamp(26px,5vmin,48px);color:rgba(0,0,0,.14);flex:none}
+.stars{margin-left:auto;display:flex;gap:2px;font-size:clamp(26px,5vmin,48px);color:rgba(0,0,0,.14);flex:none}
 .stars .on{color:#ffc400;text-shadow:0 3px 0 #c78f00;display:inline-block;animation:pop .45s}
 .choices{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:3vmin;align-content:center}
 .ccard{aspect-ratio:1.45;justify-content:center;border:6px solid transparent;padding:3vmin}
@@ -127,6 +127,15 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 .ctl.pulse{animation:pulse 1s infinite, wobble 1s infinite}
 @keyframes wobble{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 
+.midctl{display:flex;gap:clamp(12px,2.5vmin,24px);pointer-events:none}
+.lightbtn{background:#4a5160;font-size:clamp(34px,7vmin,60px);width:clamp(80px,13.5vmin,118px);height:clamp(80px,13.5vmin,118px);filter:grayscale(.6)}
+.lightbtn.on{background:#ffd23f;filter:none;box-shadow:0 8px 0 rgba(0,0,0,.28),0 0 34px 10px rgba(255,220,90,.75)}
+#buddy{position:fixed;z-index:40;top:max(16px,env(safe-area-inset-top));left:calc(max(14px,env(safe-area-inset-left)) + 82px);
+  width:66px;height:66px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:44px;
+  box-shadow:0 5px 0 rgba(0,0,0,.18);pointer-events:none;opacity:0;transform:scale(.4);transition:opacity .25s,transform .25s}
+#buddy.talk{opacity:1;transform:scale(1);animation:talk .45s ease-in-out infinite alternate}
+@keyframes talk{from{transform:scale(1) rotate(-6deg)}to{transform:scale(1.1) rotate(6deg) translateY(-3px)}}
+#home #buddy{display:none}
 #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
 </style>
 </head>
@@ -136,19 +145,20 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 <section id="home" class="screen active">
   <div class="hometop">
     <div class="spacer"></div>
-    <h1>Zug-Spass<br>Schweiz</h1>
+    <h1>Train Fun<br>Switzerland</h1>
     <div class="tools">
-      <button class="round" id="btnSound" aria-label="Ton">🔊</button>
+      <button class="round" id="btnChar" aria-label="Voice">🐰</button>
+      <button class="round" id="btnSound" aria-label="Sound">🔊</button>
       <button class="round" id="btnFull" aria-label="Vollbild">
         <svg viewBox="0 0 24 24" fill="none" stroke="#1d2b3a" stroke-width="2.6" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
       </button>
     </div>
   </div>
   <div class="modes">
-    <button class="mode m1" data-go="gallery"><span class="ic">👀</span><span>Kennenlernen</span></button>
-    <button class="mode m2" data-go="find"><span class="ic">🔍</span><span>Finde den Zug</span></button>
+    <button class="mode m1" data-go="gallery"><span class="ic">👀</span><span>Explore</span></button>
+    <button class="mode m2" data-go="find"><span class="ic">🔍</span><span>Find the Train</span></button>
     <button class="mode m3" data-go="memory"><span class="ic">🃏</span><span>Memory</span></button>
-    <button class="mode m4" data-go="drive"><span class="ic">🚂</span><span>Lokführer</span></button>
+    <button class="mode m4" data-go="drive"><span class="ic">🚂</span><span>Train Driver</span></button>
   </div>
   <div class="hometrack">
     <div class="sleepers"></div><div class="rail"></div>
@@ -158,15 +168,15 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 
 <!-- GALLERY -->
 <section id="gallery" class="screen">
-  <div class="topbar"><button class="round home" aria-label="Start">🏠</button><h2>Tippe auf einen Zug!</h2><div style="width:68px"></div></div>
+  <div class="topbar"><button class="round home" aria-label="Home">🏠</button><h2>Tap a train!</h2><div style="width:68px"></div></div>
   <div class="tgrid scroll" id="gGrid"></div>
 </section>
 
 <!-- FIND -->
 <section id="find" class="screen">
   <div class="topbar find-top">
-    <button class="round home" aria-label="Start">🏠</button>
-    <div class="prompt"><button class="round" id="fRepeat" aria-label="Nochmal hören">🔊</button><span id="fPrompt"></span></div>
+    <button class="round home" aria-label="Home">🏠</button>
+    <div class="prompt"><button class="round" id="fRepeat" aria-label="Listen again">🔊</button><span id="fPrompt"></span></div>
     <div class="stars" id="fStars"></div>
   </div>
   <div class="choices" id="fChoices"></div>
@@ -174,13 +184,13 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 
 <!-- MEMORY -->
 <section id="memory" class="screen">
-  <div class="topbar"><button class="round home" aria-label="Start">🏠</button><h2>Memory</h2><button class="round" id="mNew" aria-label="Neues Spiel">🔄</button></div>
+  <div class="topbar"><button class="round home" aria-label="Home">🏠</button><h2>Memory</h2><button class="round" id="mNew" aria-label="New game">🔄</button></div>
   <div class="mgrid" id="mGrid"></div>
 </section>
 
 <!-- DRIVE SELECT -->
 <section id="dselect" class="screen">
-  <div class="topbar"><button class="round home" aria-label="Start">🏠</button><h2>Mit welchem Zug fährst du?</h2><div style="width:68px"></div></div>
+  <div class="topbar"><button class="round home" aria-label="Home">🏠</button><h2>Which train do you want to drive?</h2><div style="width:68px"></div></div>
   <div class="tgrid scroll" id="dGrid"></div>
 </section>
 
@@ -188,17 +198,18 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 <section id="drive" class="screen">
   <canvas id="dcanvas"></canvas>
   <div class="dhud">
-    <button class="round home" aria-label="Start">🏠</button>
+    <button class="round home" aria-label="Home">🏠</button>
     <div id="dBanner" class="banner"></div>
     <div class="counter" id="dCounter">🧍 <span id="dCount">0</span></div>
   </div>
   <div class="dctl">
-    <button id="bBrake" class="ctl brake" aria-label="Bremsen">STOP</button>
-    <button id="bHorn" class="ctl horn" aria-label="Hupen">📯</button>
-    <button id="bGo" class="ctl go" aria-label="Losfahren"><svg viewBox="0 0 10 10"><path d="M2 1 L9 5 L2 9 Z" fill="#fff" stroke="#fff" stroke-width="1" stroke-linejoin="round"/></svg></button>
+    <button id="bBrake" class="ctl brake" aria-label="Brake">STOP</button>
+    <div class="midctl"><button id="bLight" class="ctl lightbtn" aria-label="Lights">💡</button><button id="bHorn" class="ctl horn" aria-label="Horn">📯</button></div>
+    <button id="bGo" class="ctl go" aria-label="Go"><svg viewBox="0 0 10 10"><path d="M2 1 L9 5 L2 9 Z" fill="#fff" stroke="#fff" stroke-width="1" stroke-linejoin="round"/></svg></button>
   </div>
 </section>
 
+<div id="buddy" aria-hidden="true">🐰</div>
 <canvas id="fx"></canvas>
 
 <script>
@@ -208,19 +219,20 @@ const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const hr=i=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
 const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const the=t=>'the '+t.sp;
 
 /* ================= ZÜGE ================= */
 const TRAINS=[
- {id:'ice',label:'ICE',sp:'I C E',art:'der',fact:'Der I C E ist super schnell. Er fährt von der Schweiz bis nach Deutschland.'},
- {id:'ec',label:'EuroCity',sp:'EuroCity',art:'der',fact:'Der EuroCity fährt durch den Gotthard bis nach Italien.'},
- {id:'ic',label:'InterCity',sp:'InterCity',art:'der',fact:'Der InterCity hat zwei Stockwerke. Von oben siehst du besonders weit!'},
- {id:'ir',label:'InterRegio',sp:'InterRegio',art:'der',fact:'Der InterRegio wird von einer roten Lokomotive gezogen.'},
- {id:'s',label:'S-Bahn',sp:'S-Bahn',art:'die',fact:'Die S-Bahn hält an jedem kleinen Bahnhof.'},
- {id:'zahnrad',label:'Zahnradbahn',sp:'Zahnradbahn',art:'die',fact:'Die Zahnradbahn klettert mit einem Zahnrad ganz steil auf den Berg.'},
- {id:'panorama',label:'Panoramazug',sp:'Panoramazug',art:'der',fact:'Der Panoramazug hat riesige Fenster. So siehst du die Berge und die Gletscher.'},
- {id:'gueter',label:'Güterzug',sp:'Güterzug',art:'der',fact:'Der Güterzug fährt keine Menschen, sondern Waren in grossen Containern.'},
- {id:'dampf',label:'Dampflok',sp:'Dampflok',art:'die',fact:'Die Dampflok macht Rauch und tschu tschu! Sie fährt mit Feuer und Wasser.'},
- {id:'tram',label:'Tram',sp:'Tram',art:'das',fact:'Das Tram fährt mitten durch die Stadt, auf Schienen in der Strasse.'},
+ {id:'ice',label:'ICE',sp:'I.C.E.',fact:'The I.C.E. is super fast! It goes all the way from Switzerland to Germany.'},
+ {id:'ec',label:'EuroCity',sp:'EuroCity',fact:'The EuroCity goes through the Gotthard tunnel, all the way to Italy.'},
+ {id:'ic',label:'InterCity',sp:'InterCity',fact:'The InterCity has two floors. From the top you can see really far!'},
+ {id:'ir',label:'InterRegio',sp:'InterRegio',fact:'The InterRegio is pulled by a big red locomotive.'},
+ {id:'s',label:'S-Bahn',sp:'S-Bahn',fact:'The S-Bahn stops at every little station.'},
+ {id:'zahnrad',label:'Cog Railway',sp:'cog railway',fact:'The cog railway climbs up steep mountains with a big gear wheel.'},
+ {id:'panorama',label:'Panorama Train',sp:'panorama train',fact:'The panorama train has giant windows, so you can see the mountains and glaciers.'},
+ {id:'gueter',label:'Freight Train',sp:'freight train',fact:'The freight train carries goods in big containers, not people.'},
+ {id:'dampf',label:'Steam Train',sp:'steam train',fact:'The steam train puffs smoke and goes choo choo! It runs on fire and water.'},
+ {id:'tram',label:'Tram',sp:'tram',fact:'The tram drives right through the city, on rails in the street.'},
 ];
 const TRAIN=Object.fromEntries(TRAINS.map(t=>[t.id,t]));
 
@@ -348,10 +360,14 @@ function trainInner(id,flat){
   return RAILS(false)+body;
 }
 const _svg={};
-function svgURL(id,flat=false,px=0){
-  const k=id+'|'+flat+'|'+px; if(_svg[k]) return _svg[k];
+function svgURL(id,flat=false,px=0,lit=false){
+  const k=id+'|'+flat+'|'+px+'|'+lit; if(_svg[k]) return _svg[k];
   const w=px||360,h=Math.round(w*130/360);
-  const s=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 360 130">${trainInner(id,flat)}</svg>`;
+  let inner=trainInner(id,flat);
+  if(lit) inner=inner.split(WIN).join('#ffe08a').split('#9fd3f0').join('#ffeaa8')
+    .split('r="3.2" fill="#ffe680"').join('r="6" fill="#fffbe6" stroke="#ffd34d" stroke-width="2.5"')
+    .split('r="5" fill="#ffe680" stroke="#111"').join('r="7" fill="#fffbe6" stroke="#ffd34d" stroke-width="2.5"');
+  const s=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 360 130">${inner}</svg>`;
   return _svg[k]='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);
 }
 
@@ -400,27 +416,53 @@ const boing=()=>tone(320,.35,{slideTo:110,vol:.28});
 const popS=()=>tone(600,.12,{slideTo:1300,vol:.16});
 const flipS=()=>noise(.12,3000,.08);
 const whistle=()=>{tone(2700,.25,{vol:.08});tone(2700,.45,{vol:.08,when:.3});};
+function meow(){const c=ac();if(!c||!AC.on)return;const t=c.currentTime,o=c.createOscillator(),f=c.createBiquadFilter(),g=c.createGain();
+  o.type='sawtooth';o.frequency.setValueAtTime(520,t);o.frequency.linearRampToValueAtTime(820,t+.18);o.frequency.linearRampToValueAtTime(460,t+.55);
+  f.type='bandpass';f.frequency.setValueAtTime(900,t);f.frequency.linearRampToValueAtTime(1600,t+.2);f.frequency.linearRampToValueAtTime(800,t+.55);f.Q.value=3;
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35,t+.06);g.gain.exponentialRampToValueAtTime(.0001,t+.6);
+  o.connect(f);f.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.65);}
+const hop=()=>{tone(700,.12,{slideTo:1500,vol:.15});tone(900,.12,{slideTo:1900,vol:.15,when:.14});};
+const charSfx=()=>charKey==='cat'?meow():hop();
 const doorChime=()=>{tone(988,.5,{vol:.15});tone(784,.7,{vol:.15,when:.3});};
 
-/* ================= SPRACHE ================= */
+/* ================= STIMME (Englisch, Hase/Katze) ================= */
+const CHARS={
+  bunny:{emoji:'🐰',pitch:1.9,rate:1.07,hello:'Hi! I am Hoppy the bunny!'},
+  cat:{emoji:'🐱',pitch:1.5,rate:.97,hello:'Meow! I am Whiskers the cat!'}
+};
+let charKey='bunny';
+try{if(localStorage.getItem('zug-char')==='cat')charKey='cat';}catch(e){}
+const NOVELTY=/bubbles|bells|boing|whisper|zarvox|trinoids|albert|bad news|good news|jester|organ|cellos|superstar|wobble|hysterical|deranged|bahh|fred|ralph|junior|kathy|princess|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley/i;
+function voiceScore(v){
+  if(!/^en/i.test(v.lang)||NOVELTY.test(v.name)) return -1;
+  let s=1;
+  if(/premium|enhanced|natural|neural|online/i.test(v.name)) s+=6;
+  if(/samantha|ava|allison|susan|zoe|karen|serena|aria|jenny|libby|sonia|emma|moira|tessa|nicky|google us english|google uk english female/i.test(v.name)) s+=3;
+  if(/en[-_](US|GB)/i.test(v.lang)) s+=1;
+  return s;
+}
 const Voice={v:null,pick(){
-  try{const vs=speechSynthesis.getVoices();
-  this.v=vs.find(v=>/de[-_]CH/i.test(v.lang))||vs.find(v=>/de[-_]DE/i.test(v.lang)&&/anna|petra|helena|katja|female/i.test(v.name))||vs.find(v=>/^de/i.test(v.lang))||null;}catch(e){}
+  try{const vs=speechSynthesis.getVoices();let best=null,bs=-1;
+    for(const v of vs){const sc=voiceScore(v);if(sc>bs){bs=sc;best=v;}}
+    this.v=bs>=0?best:null;}catch(e){}
 }};
 if('speechSynthesis' in window){Voice.pick();speechSynthesis.onvoiceschanged=()=>Voice.pick();}
+const buddyEl=()=>document.getElementById('buddy');
 function say(text,done){
-  let called=false; const fin=()=>{if(called)return;called=true;done&&done();};
+  let called=false; const fin=()=>{if(called)return;called=true;buddyEl().classList.remove('talk');done&&done();};
   if(!AC.on||!('speechSynthesis' in window)){setTimeout(fin,700+text.length*35);return;}
+  const ch=CHARS[charKey];
   try{
     speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(text);
-    u.lang=Voice.v?Voice.v.lang:'de-DE'; if(Voice.v) u.voice=Voice.v;
-    u.rate=.95; u.pitch=1.1; u.onend=fin; u.onerror=fin;
+    u.lang=Voice.v?Voice.v.lang:'en-US'; if(Voice.v) u.voice=Voice.v;
+    u.rate=ch.rate; u.pitch=ch.pitch; u.onend=fin; u.onerror=fin;
+    if(current!=='home'){const b=buddyEl();b.textContent=ch.emoji;b.classList.add('talk');}
     speechSynthesis.speak(u);
   }catch(e){}
-  setTimeout(fin,1600+text.length*85);
+  setTimeout(fin,1600+text.length*80);
 }
-function hush(){try{speechSynthesis.cancel();}catch(e){}}
+function hush(){try{speechSynthesis.cancel();}catch(e){}const b=document.getElementById('buddy');if(b)b.classList.remove('talk');}
 let unlocked=false;
 function unlock(){
   ac();
@@ -483,10 +525,17 @@ soundBtn.addEventListener('click',()=>{AC.on=!AC.on;if(!AC.on)hush();try{localSt
     try{ if(fs)(document.exitFullscreen||document.webkitExitFullscreen).call(document); else req.call(el); }catch(e){}
   });
 })();
+const charBtn=$('#btnChar');
+charBtn.textContent=CHARS[charKey].emoji;
+charBtn.addEventListener('click',()=>{
+  charKey=charKey==='bunny'?'cat':'bunny'; charBtn.textContent=CHARS[charKey].emoji;
+  try{localStorage.setItem('zug-char',charKey);}catch(e){}
+  charSfx(); setTimeout(()=>say(CHARS[charKey].hello),450);
+});
 let homeIdx=0; const homeOrder=shuffle(TRAINS.map(t=>t.id));
 const homeImg=$('#homeTrain'); homeImg.src=svgURL(homeOrder[0],true);
 $('#homeRun').addEventListener('animationiteration',()=>{homeIdx=(homeIdx+1)%homeOrder.length;homeImg.src=svgURL(homeOrder[homeIdx],true);});
-$('#homeRun').addEventListener('click',()=>{const t=TRAIN[homeOrder[homeIdx]];horn(t.id);setTimeout(()=>say(`${cap(t.art)} ${t.sp}!`),800);});
+$('#homeRun').addEventListener('click',()=>{const t=TRAIN[homeOrder[homeIdx]];horn(t.id);setTimeout(()=>say(`The ${t.sp}!`),800);});
 
 /* ---------- Kennenlernen ---------- */
 function openGallery(){
@@ -494,10 +543,10 @@ function openGallery(){
   if(!g.childElementCount) TRAINS.forEach(t=>{
     const c=trainCard(t,true);
     c.addEventListener('click',()=>{c.classList.remove('bounce');void c.offsetWidth;c.classList.add('bounce');hush();horn(t.id);
-      setTimeout(()=>say(`Das ist ${t.art} ${t.sp}. ${t.fact}`),900);});
+      setTimeout(()=>say(`This is ${the(t)}. ${t.fact}`),900);});
     g.appendChild(c);
   });
-  g.scrollTop=0; say('Tippe auf einen Zug!');
+  g.scrollTop=0; say('Tap a train!');
 }
 
 /* ---------- Finde den Zug ---------- */
@@ -509,28 +558,28 @@ function findNext(){
   const opts=shuffle([t,...shuffle(TRAINS.filter(x=>x.id!==t.id)).slice(0,2)]);
   const box=$('#fChoices'); box.innerHTML='';
   opts.forEach(o=>{const c=trainCard(o,false);c.classList.add('ccard');c.addEventListener('click',()=>findTap(c,o));box.appendChild(c);});
-  $('#fPrompt').innerHTML=`Wo ist ${t.art} <b>${t.label}</b>?`;
-  say(`Wo ist ${t.art} ${t.sp}?`);
+  $('#fPrompt').innerHTML=`Where is the <b>${t.label}</b>?`;
+  say(`Where is ${the(t)}?`);
 }
-$('#fRepeat').addEventListener('click',()=>{if(!F.busy&&F.target) say(`Wo ist ${F.target.art} ${F.target.sp}?`);});
+$('#fRepeat').addEventListener('click',()=>{if(!F.busy&&F.target) say(`Where is ${the(F.target)}?`);});
 function findTap(card,o){
   if(F.busy) return;
   if(o.id===F.target.id){
     F.busy=true; const tok=F.tok; hush();
-    card.classList.add('right'); success();
+    card.classList.add('right'); success(); setTimeout(charSfx,250);
     setTimeout(()=>{horn(o.id);card.classList.add('driveoff');},380);
     F.stars++; drawStars();
-    const praise=pick(['Super!','Toll gemacht!','Bravo!','Genau!','Richtig!','Juhui!']);
-    const txt=Math.random()<.5?`${praise} ${o.fact}`:`${praise} Das ist ${o.art} ${o.sp}.`;
+    const praise=pick(['Super!','Great job!','Well done!','Yes!','Hooray!','You got it!']);
+    const txt=Math.random()<.5?`${praise} ${o.fact}`:`${praise} That is ${the(o)}.`;
     setTimeout(()=>{ if(tok!==F.tok||current!=='find') return;
       say(txt,()=>{ if(tok!==F.tok||current!=='find') return;
-        if(F.stars>=5) celebrate('Wunderbar! Fünf Sterne! Du bist ein echter Zug-Profi!',()=>{if(tok!==F.tok||current!=='find')return;F.stars=0;drawStars();findNext();});
+        if(F.stars>=5) celebrate('Wonderful! Five stars! You are a real train expert!',()=>{if(tok!==F.tok||current!=='find')return;F.stars=0;drawStars();findNext();});
         else findNext();
       });
     },1100);
   } else {
     card.classList.remove('shake');void card.offsetWidth;card.classList.add('shake');boing();
-    say(`Das ist ${o.art} ${o.sp}. Wo ist ${F.target.art} ${F.target.sp}?`);
+    say(`That is ${the(o)}. Where is ${the(F.target)}?`);
   }
 }
 
@@ -546,7 +595,7 @@ function newMemory(){
     c.innerHTML=`<div class="inner"><div class="face back"><span>🚆</span></div><div class="face front"><img src="${svgURL(t.id)}" alt="" draggable="false"></div></div>`;
     c.addEventListener('click',()=>memTap(c,t)); g.appendChild(c);
   });
-  say('Finde die Paare! Tippe auf zwei Karten.');
+  say('Find the pairs! Tap two cards.');
 }
 $('#mNew').addEventListener('click',()=>{popS();newMemory();});
 function memTap(c,t){
@@ -557,9 +606,9 @@ function memTap(c,t){
   if(a.t.id===t.id){
     M.found++; const last=M.found===6;
     setTimeout(()=>{ if(tok!==M.tok) return;
-      a.c.classList.add('done'); c.classList.add('done'); success();
-      if(last){ setTimeout(()=>{ if(tok!==M.tok) return; celebrate(`${cap(t.art)} ${t.sp}! Super, du hast alle Paare gefunden!`); $('#mNew').classList.add('pulse'); },500); }
-      else say(`${cap(t.art)} ${t.sp}!`);
+      a.c.classList.add('done'); c.classList.add('done'); success(); setTimeout(charSfx,250);
+      if(last){ setTimeout(()=>{ if(tok!==M.tok) return; celebrate(`The ${t.sp}! Super, you found all the pairs!`); $('#mNew').classList.add('pulse'); },500); }
+      else say(`The ${t.sp}!`);
     },450);
   } else {
     M.lock=true;
@@ -568,7 +617,7 @@ function memTap(c,t){
 }
 
 /* ================= LOKFÜHRER ================= */
-const CITIES=['Zürich','Bern','Basel','Luzern','St. Gallen','Genf','Lausanne','Lugano','Chur','Interlaken','Winterthur','Zermatt','Brig','Arth-Goldau','Thun','Olten','Fribourg','Schaffhausen','Bellinzona','Biel','Andermatt','Montreux'];
+const CITIES=['Zurich','Bern','Basel','Lucerne','St. Gallen','Geneva','Lausanne','Lugano','Chur','Interlaken','Winterthur','Zermatt','Brig','Arth-Goldau','Thun','Olten','Fribourg','Schaffhausen','Bellinzona','Biel','Andermatt','Montreux'];
 const PEOPLE=['🧒','👧','👦','👩','👨','👵','👴','🧑','👱‍♀️','🐕','🧑‍🦰','👩‍🦳','🧔'];
 const MAX=420, ACC=150, BRK=280, PMAX=1000;
 const D={raf:0,tok:0};
@@ -580,18 +629,18 @@ function openDriveSelect(){
     c.addEventListener('click',()=>{hush();horn(t.id);driveStart(t.id);});
     g.appendChild(c);
   });
-  g.scrollTop=0; say('Mit welchem Zug möchtest du fahren?');
+  g.scrollTop=0; say('Which train do you want to drive?');
 }
 
 function driveStart(id){
   Object.assign(D,{id,pos:0,speed:0,mode:'idle',stations:[],tunnels:[],genX:1400,people:[],floats:[],count:0,nextMile:10,boarding:null,
-    smoke:[],smokeT:0,time:0,names:shuffle(CITIES.slice()),ni:0,bannerT:0,hint:false,dark:0,tunnelSaid:0,tok:D.tok+1,lastStep:0});
+    smoke:[],smokeT:0,time:0,names:shuffle(CITIES.slice()),ni:0,bannerT:0,hint:false,dark:0,tunnelSaid:0,lights:false,lightHint:false,tok:D.tok+1,lastStep:0});
   show('drive'); driveResize();
-  $('#dCount').textContent='0'; setGo(true); $('#bGo').classList.add('pulse'); $('#bBrake').classList.remove('pulse');
+  $('#dCount').textContent='0'; $('#bLight').classList.remove('on','pulse'); setGo(true); $('#bGo').classList.add('pulse'); $('#bBrake').classList.remove('pulse');
   $('#dBanner').classList.remove('show');
   cancelAnimationFrame(D.raf); D.last=performance.now(); D.raf=requestAnimationFrame(driveLoop);
   const tok=D.tok;
-  setTimeout(()=>{if(current==='drive'&&tok===D.tok) say('Einsteigen bitte! Drück den grünen Knopf, dann fährt der Zug los.');},1000);
+  setTimeout(()=>{if(current==='drive'&&tok===D.tok) say('All aboard! Press the green button to go.');},1000);
 }
 function driveStop(){cancelAnimationFrame(D.raf);D.raf=0;}
 function driveResize(){
@@ -601,7 +650,7 @@ function driveResize(){
   const portrait=D.H>D.W;
   D.trainW=Math.min(D.W*(portrait?.82:.6),680); D.trainH=D.trainW*130/360;
   D.trackY=D.H*(portrait?.6:.68); D.trainLeft=Math.max(14,D.W*.05); D.P=D.trainW+160;
-  if(D.id){D.img=new Image();D.img.src=svgURL(D.id,true,Math.round(D.trainW*D.dpr));}
+  if(D.id){const px=Math.round(D.trainW*D.dpr);D.img=new Image();D.img.src=svgURL(D.id,true,px);D.imgLit=new Image();D.imgLit.src=svgURL(D.id,true,px,true);}
 }
 addEventListener('resize',()=>{if(current==='drive') driveResize();});
 
@@ -614,6 +663,11 @@ press($('#bGo'),()=>{
 });
 press($('#bBrake'),()=>{ if(D.mode!=='brake'&&D.speed>30) noise(.1,5000,.6); D.mode='brake'; });
 press($('#bHorn'),()=>horn(D.id));
+press($('#bLight'),()=>{
+  D.lights=!D.lights; $('#bLight').classList.toggle('on',D.lights); $('#bLight').classList.remove('pulse'); D.lightHint=false;
+  tone(D.lights?1400:900,.08,{type:'square',vol:.08}); tone(D.lights?1800:600,.08,{type:'square',vol:.08,when:.07});
+  say(D.lights?'Lights on!':'Lights off!');
+});
 $('#dcanvas').addEventListener('pointerdown',e=>e.preventDefault());
 
 function genUntil(limit){
@@ -659,11 +713,11 @@ function updateDrive(dt){
     const dist=s.x-front;
     if(!s.announced&&dist<1600){
       s.announced=true; gong(); const tok=D.tok;
-      setTimeout(()=>{if(tok===D.tok&&current==='drive') say(`Nächster Halt: ${s.name}.`);},1100);
-      $('#dBanner').innerHTML=`<small>Nächster Halt</small>${s.name}`; $('#dBanner').classList.add('show'); D.bannerT=5;
+      setTimeout(()=>{if(tok===D.tok&&current==='drive') say(`Next stop: ${s.name}.`);},1100);
+      $('#dBanner').innerHTML=`<small>Next stop</small>${s.name}`; $('#dBanner').classList.add('show'); D.bannerT=5;
     }
     if(dist<650&&center<s.x+D.P&&D.speed>0&&D.mode!=='brake') hint=true;
-    if(!D.boarding&&center>s.x+D.P+20){ s.missed=true; say('Hoppla, vorbeigefahren! Beim nächsten Bahnhof früher bremsen.'); }
+    if(!D.boarding&&center>s.x+D.P+20){ s.missed=true; say('Oops, we went past it! Press stop a bit earlier next time.'); }
     else if(D.speed===0&&!D.boarding&&Math.abs((s.x+D.P/2)-center)<D.P/2) startBoarding(s);
   }
   if(hint!==D.hint){D.hint=hint;$('#bBrake').classList.toggle('pulse',hint);}
@@ -673,9 +727,10 @@ function updateDrive(dt){
   let inT=false;
   for(const t of D.tunnels){
     if(center>t.x&&center<t.x+t.len) inT=true;
-    if(!t.said&&front>t.x&&D.tunnelSaid<3){t.said=true;D.tunnelSaid++;say('Huiii, ein Tunnel!');}
+    if(!t.said&&front>t.x-250&&front<t.x+t.len){t.said=true;if(D.tunnelSaid<4){D.tunnelSaid++;say(D.lights?'Whoosh, a tunnel!':'Whoosh, a tunnel! It is dark. Turn on the lights!');}}
   }
   D.dark+=((inT?1:0)-D.dark)*Math.min(1,dt*4);
+  const want=inT&&!D.lights; if(want!==D.lightHint){D.lightHint=want;$('#bLight').classList.toggle('pulse',want);}
 
   // Fahrgäste
   for(const p of D.people){
@@ -710,14 +765,14 @@ function startBoarding(s){
     const door=left+D.trainW*(.2+.6*Math.random());
     D.people.push({x:s.x+40+Math.random()*(D.P-80),door,e:pick(PEOPLE),delay:.6+i*.6});
   }
-  say(`${s.name}. Bitte einsteigen!`);
+  say(`${s.name}. All aboard!`);
 }
 function finishBoarding(){
   D.boarding=null; setGo(true); $('#bGo').classList.add('pulse'); $('#dBanner').classList.remove('show');
   if(D.count>=D.nextMile){
     while(D.nextMile<=D.count) D.nextMile+=10;
-    burst(); fanfare(); setTimeout(()=>say(`Wow! Schon ${D.count} Fahrgäste im Zug! Weiterfahren!`),400);
-  } else say(pick(['Alle eingestiegen. Türen schliessen!','Alle sind drin. Weiterfahren!','Bitte Türen schliessen. Und los!']));
+    burst(); fanfare(); setTimeout(()=>say(`Wow! Already ${D.count} passengers on the train! Let's go!`),400);
+  } else say(pick(['Everyone is on board. Doors closing!','All in! Off we go!','Doors closing. Let\'s go!']));
 }
 
 /* ---------- Zeichnen ---------- */
@@ -788,6 +843,18 @@ function drawDrive(){
     c.fillStyle='#8a6d4a';for(let k=0;k<4;k++)c.fillRect(bx+bw*(.1+k*.22),sy+sh+th*.12,bw*.12,th*.2);
   }
 
+  // Tunnel-Röhre (hinter dem Zug)
+  for(const t of D.tunnels){
+    const sx=t.x-pos, ex=sx+t.len; if(ex<-th*2||sx>W+th*2) continue;
+    const tp=ty-th*1.08, top=tp-th*.25, peak=top-Math.min(t.len*.12,th*.5), cy=2*peak-top, o=th*.8;
+    c.fillStyle='#8c7b66';c.beginPath();c.moveTo(sx-o,ty+th*.16);
+    c.quadraticCurveTo(sx-o*.7,top,sx,top);c.quadraticCurveTo((sx+ex)/2,cy,ex,top);c.quadraticCurveTo(ex+o*.7,top,ex+o,ty+th*.16);c.closePath();c.fill();
+    c.strokeStyle='#5fa843';c.lineWidth=th*.12;c.lineCap='round';c.beginPath();c.moveTo(sx-o*.35,top+th*.12);c.quadraticCurveTo(sx-o*.1,top,sx,top);c.quadraticCurveTo((sx+ex)/2,cy,ex,top);c.quadraticCurveTo(ex+o*.1,top,ex+o*.35,top+th*.12);c.stroke();
+    const r=th*.25; c.fillStyle='#2a2420';c.beginPath();c.moveTo(sx,ty+th*.16);c.lineTo(sx,tp+r);c.quadraticCurveTo(sx,tp,sx+r,tp);c.lineTo(ex-r,tp);c.quadraticCurveTo(ex,tp,ex,tp+r);c.lineTo(ex,ty+th*.16);c.closePath();c.fill();
+    c.fillStyle='rgba(255,255,255,.06)';for(let x=sx+40;x<ex-20;x+=90)c.fillRect(x,tp+th*.1,th*.06,ty-tp-th*.1);
+    [.3,.62].forEach(u=>{const x=sx+(ex-sx)*u,y=(1-u)*(1-u)*top+2*u*(1-u)*cy+u*u*top;emoji(c,'🌲',x,y+th*.05,th*.42);});
+  }
+
   // Gleis
   c.fillStyle='#a39484';c.fillRect(0,ty+2,W,th*.14);
   c.fillStyle='#6b4f35';const sl=26;for(let x=-(pos%sl);x<W;x+=sl)c.fillRect(x,ty+2,13,Math.max(4,th*.05));
@@ -796,20 +863,18 @@ function drawDrive(){
 
   // Zug
   const bob=D.speed>1?Math.sin(D.time*22)*.9*(D.speed/MAX):0, top=ty-th*(114/130)+bob;
-  if(D.img&&D.img.complete&&D.img.naturalWidth) c.drawImage(D.img,D.trainLeft,top,D.trainW,th);
+  const im=D.lights&&D.imgLit&&D.imgLit.complete?D.imgLit:D.img;
+  if(im&&im.complete&&im.naturalWidth) c.drawImage(im,D.trainLeft,top,D.trainW,th);
 
   // Rauch
   for(const s of D.smoke){c.fillStyle=`rgba(225,225,225,${Math.max(0,s.a)})`;c.beginPath();c.arc(s.x,s.y,s.r,0,7);c.fill();}
 
-  // Tunnel
+  // Tunnelportale (vor dem Zug)
   for(const t of D.tunnels){
-    const sx=t.x-pos, ex=sx+t.len; if(ex<-120||sx>W+120) continue;
-    const tp=ty-th*1.05, peak=tp-Math.min(t.len*.18,th*.6), cy=2*peak-tp;
-    c.fillStyle='#8c7b66';c.beginPath();c.moveTo(sx,ty+th*.16);c.lineTo(sx,tp);c.quadraticCurveTo((sx+ex)/2,cy,ex,tp);c.lineTo(ex,ty+th*.16);c.closePath();c.fill();
-    c.strokeStyle='#5fa843';c.lineWidth=th*.12;c.lineCap='round';c.beginPath();c.moveTo(sx,tp);c.quadraticCurveTo((sx+ex)/2,cy,ex,tp);c.stroke();
-    c.fillStyle='#a3a3a3';c.fillRect(sx-th*.08,tp-th*.03,th*.16,ty+th*.19-tp);c.fillRect(ex-th*.08,tp-th*.03,th*.16,ty+th*.19-tp);
-    c.fillStyle='#555';c.beginPath();c.arc(sx,ty-th*.45,th*.03,0,7);c.arc(ex,ty-th*.45,th*.03,0,7);c.fill();
-    [.3,.62].forEach(u=>{const x=sx+(ex-sx)*u,y=(1-u)*(1-u)*tp+2*u*(1-u)*cy+u*u*tp;emoji(c,'🌲',x,y+th*.05,th*.42);});
+    const sx=t.x-pos, ex=sx+t.len; if(ex<-th*2||sx>W+th*2) continue;
+    const tp=ty-th*1.08, pw=th*.16;
+    [sx,ex].forEach(x=>{c.fillStyle='#a3a3a3';c.fillRect(x-pw/2,tp-th*.06,pw,ty+th*.22-tp);
+      c.fillStyle='#8a8a8a';for(let y=tp;y<ty+th*.1;y+=th*.16)c.fillRect(x-pw/2,y,pw,th*.02);});
   }
 
   // Perron + Fahrgäste
@@ -829,12 +894,16 @@ function drawDrive(){
   for(const f of D.floats){c.fillStyle=`rgba(255,200,0,${1-f.t/1.2})`;c.strokeStyle=`rgba(0,0,0,${.5*(1-f.t/1.2)})`;c.lineWidth=3;
     const y=ty-th*.6-f.t*th*.6;c.strokeText('+1',f.x-pos,y);c.fillText('+1',f.x-pos,y);}
 
-  // Tunnel-Dunkelheit + Scheinwerfer
-  if(D.dark>.02){
-    c.fillStyle=`rgba(8,10,30,${D.dark*.6})`;c.fillRect(0,0,W,H);
-    const lx=D.trainLeft+D.trainW, ly=ty-th*.2, gr=c.createRadialGradient(lx,ly,0,lx,ly,th*1.4);
-    gr.addColorStop(0,`rgba(255,240,170,${.55*D.dark})`);gr.addColorStop(1,'rgba(255,240,170,0)');
-    c.fillStyle=gr;c.fillRect(0,0,W,H);
+  // Tunnel-Dunkelheit
+  if(D.dark>.02){c.fillStyle=`rgba(5,8,25,${D.dark*.72})`;c.fillRect(0,0,W,H);}
+  // Lichter
+  if(D.lights){
+    if(D.dark>.02&&D.imgLit&&D.imgLit.complete){c.save();c.globalAlpha=Math.min(1,D.dark*.8);c.drawImage(D.imgLit,D.trainLeft,top,D.trainW,th);c.restore();}
+    const lx=D.trainLeft+D.trainW*.95, ly=ty-th*.16, len=th*3.2, a=.18+.5*D.dark;
+    const gr=c.createLinearGradient(lx,0,lx+len,0);gr.addColorStop(0,`rgba(255,244,190,${a})`);gr.addColorStop(1,'rgba(255,244,190,0)');
+    c.fillStyle=gr;c.beginPath();c.moveTo(lx,ly-th*.04);c.lineTo(lx+len,ly-th*.55);c.lineTo(lx+len,ly+th*.25);c.lineTo(lx,ly+th*.04);c.closePath();c.fill();
+    const g2=c.createRadialGradient(lx,ly,0,lx,ly,th*.35);g2.addColorStop(0,`rgba(255,250,220,${.5+.4*D.dark})`);g2.addColorStop(1,'rgba(255,250,220,0)');
+    c.fillStyle=g2;c.beginPath();c.arc(lx,ly,th*.35,0,7);c.fill();
   }
 }
 
