@@ -25,7 +25,7 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
   padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));
   background:linear-gradient(#8fd3ff 0%,#dff4ff 72%,#bfe6a6 72%,#9fd67f 100%)}
 .screen.active{display:flex}
-.topbar{display:flex;align-items:center;gap:14px;min-height:72px;flex:none}
+.topbar{display:flex;align-items:center;gap:14px;min-height:72px;flex:none;position:relative;z-index:3}
 .topbar h2{flex:1;margin:0;text-align:center;font-size:clamp(24px,4.6vmin,44px);font-weight:700}
 .round{width:68px;height:68px;flex:none;border-radius:50%;background:#fff;font-size:34px;display:flex;align-items:center;justify-content:center;
   box-shadow:0 5px 0 rgba(0,0,0,.18);transition:transform .08s}
@@ -36,19 +36,25 @@ img{-webkit-user-drag:none;user-select:none;pointer-events:none}
 #home{align-items:center;padding-bottom:0}
 .hometop{width:100%;display:flex;align-items:center;justify-content:space-between;flex:none}
 .hometop .tools{display:flex;gap:12px}
-.hometop .spacer{width:228px}
+.hometop .spacer{width:308px}
+.langbtn{font-size:17px;font-weight:700;width:auto;min-width:68px;padding:0 12px;border-radius:34px}
+.dl{display:block;font-size:.62em;}
+h1 .dl{font-size:.55em;text-shadow:0 3px 0 var(--red)}
+.dl{opacity:.82;font-weight:500;line-height:1.15}
 @media (orientation:portrait){.hometop{flex-direction:column-reverse;gap:6px}.hometop .tools{align-self:flex-end}.hometop .spacer{display:none}}
-h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-align:center;line-height:1.05;
+h1{margin:0;font-size:clamp(30px,6.4vmin,70px);font-weight:700;color:#fff;text-align:center;line-height:1.05;
   text-shadow:0 4px 0 var(--red),0 9px 18px rgba(0,0,0,.18)}
-.modes{flex:1;width:100%;max-width:1200px;display:grid;grid-template-columns:repeat(6,1fr);gap:3vmin;align-content:center;min-height:0}
-.mode{grid-column:span 2;border-radius:34px;padding:2.6vmin;min-height:19vmin;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8vmin;
+.modes{flex:1;width:100%;max-width:1200px;display:grid;grid-template-columns:repeat(8,1fr);gap:3vmin;align-content:center;min-height:0}
+.mode{grid-column:span 2;border-radius:30px;padding:2vmin;min-height:17vmin;line-height:1.1;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8vmin;
   font-size:clamp(22px,4.2vmin,42px);font-weight:600;color:#fff;box-shadow:0 10px 0 rgba(0,0,0,.22);transition:transform .08s;
   text-shadow:0 2px 0 rgba(0,0,0,.18)}
 .mode .ic{font-size:clamp(46px,10.5vmin,108px);line-height:1;text-shadow:none}
 .mode:active{transform:translateY(8px);box-shadow:0 2px 0 rgba(0,0,0,.22)}
 .m5{background:#1f6fd1}
 .mode.m4{grid-column:2/span 2}
-@media (orientation:portrait){.modes{grid-template-columns:1fr 1fr}.mode,.mode.m4{grid-column:auto}.mode.m5{grid-column:1/-1}}
+@media (orientation:portrait){.modes{grid-template-columns:1fr 1fr}.mode,.mode.m4{grid-column:auto}.mode.m7{grid-column:1/-1}}
+.m6{background:#00a19a}.m7{background:#0b5fb0}
+.mode .dl{font-size:.6em}
 .m1{background:#ff9f1c}.m2{background:#16b3a3}.m3{background:#8e5cf7}.m4{background:var(--red)}
 .hometrack{position:relative;width:calc(100% + 28px);margin:0 -14px;height:clamp(90px,19vmin,190px);flex:none;overflow:hidden}
 .hometrack .rail{position:absolute;left:0;right:0;bottom:calc(12.3% - 6px);height:6px;background:#7d7d7d;box-shadow:0 6px 0 #b9a98f}
@@ -150,6 +156,26 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 .pl.wrong .dot{animation:shake .5s}
 .pl.done circle.bg{fill:#eaffef;stroke:#34c759}
 .lvl{font-size:clamp(16px,2.6vmin,24px);background:#fff;border-radius:20px;padding:4px 12px;margin-left:8px;box-shadow:0 3px 0 rgba(0,0,0,.12);color:#1d2b3a;text-shadow:none;font-weight:600;align-self:center}
+.mathbox{position:absolute;left:50%;top:calc(max(12px,env(safe-area-inset-top)) + 84px);transform:translateX(-50%) scale(.8);opacity:0;pointer-events:none;
+  background:#fff;border-radius:26px;padding:14px 24px 18px;box-shadow:0 10px 30px rgba(0,0,0,.25);text-align:center;transition:.3s;min-width:min(560px,92vw);z-index:5}
+.mathbox.show{opacity:1;transform:translateX(-50%) scale(1);pointer-events:auto}
+.mathbox .eq{font-size:clamp(34px,7vmin,64px);font-weight:700;letter-spacing:2px;white-space:nowrap}
+.eq .mi{color:#e2001a}.eq .pl2{color:#22b14c}.eq .q{color:#8e5cf7}
+.mathbox .mq{font-size:clamp(18px,3.2vmin,28px);font-weight:600;margin:4px 0 10px}
+.mopts{display:flex;gap:16px;justify-content:center}
+.mopts button{width:clamp(78px,13vmin,120px);height:clamp(78px,13vmin,120px);border-radius:24px;background:#8e5cf7;color:#fff;font-size:clamp(36px,7vmin,62px);font-weight:700;box-shadow:0 7px 0 #5d38b8}
+.mopts button:active{transform:translateY(5px);box-shadow:0 2px 0 #5d38b8}
+.mopts button.no{background:#c9c9c9;box-shadow:0 7px 0 #9a9a9a}
+.mopts button.yes{background:#22b14c;box-shadow:0 7px 0 #137a31}
+.mopts button.help{animation:wobble .8s infinite}
+.gonscreen{background:linear-gradient(#8fd3ff 0%,#cdeeff 50%,#f4f8fc 50%,#e3edf6 100%)}
+.gp{cursor:pointer}
+.gp.wrong .body{animation:shake .5s;transform-box:fill-box}
+#scanvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.qbox{background:#fff;border-radius:24px;padding:8px 26px;font-size:clamp(34px,7vmin,64px);font-weight:700;box-shadow:0 6px 0 rgba(0,0,0,.18);min-width:180px;text-align:center;line-height:1.1}
+.qbox .dl{font-size:.38em}
+.qbox.pop{animation:pop .4s}
+#ship .stars .lvl{color:#1d2b3a}
 #fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
 </style>
 </head>
@@ -159,8 +185,9 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 <section id="home" class="screen active">
   <div class="hometop">
     <div class="spacer"></div>
-    <h1>Train Fun<br>Switzerland</h1>
+    <h1 data-en="Train Fun Switzerland" data-de="Zug-Spass Schweiz"></h1>
     <div class="tools">
+      <button class="round langbtn" id="btnLang" aria-label="Language">EN+DE</button>
       <button class="round" id="btnChar" aria-label="Voice">🐰</button>
       <button class="round" id="btnSound" aria-label="Sound">🔊</button>
       <button class="round" id="btnFull" aria-label="Vollbild">
@@ -169,11 +196,13 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
     </div>
   </div>
   <div class="modes">
-    <button class="mode m1" data-go="gallery"><span class="ic">👀</span><span>Explore</span></button>
-    <button class="mode m2" data-go="find"><span class="ic">🔍</span><span>Find the Train</span></button>
-    <button class="mode m3" data-go="memory"><span class="ic">🃏</span><span>Memory</span></button>
-    <button class="mode m4" data-go="drive"><span class="ic">🚂</span><span>Train Driver</span></button>
-    <button class="mode m5" data-go="map"><span class="ic">🗺️</span><span>Swiss Map</span></button>
+    <button class="mode m1" data-go="gallery"><span class="ic">👀</span><span data-en="Explore" data-de="Entdecken"></span></button>
+    <button class="mode m2" data-go="find"><span class="ic">🔍</span><span data-en="Find the Train" data-de="Finde den Zug"></span></button>
+    <button class="mode m3" data-go="memory"><span class="ic">🃏</span><span data-en="Memory" data-de="Memory"></span></button>
+    <button class="mode m5" data-go="map"><span class="ic">🗺️</span><span data-en="Swiss Map" data-de="Schweizer Karte"></span></button>
+    <button class="mode m4" data-go="drive"><span class="ic">🚂</span><span data-en="Train Driver" data-de="Lokführer"></span></button>
+    <button class="mode m6" data-go="gondola"><span class="ic">🚡</span><span data-en="Gondola" data-de="Gondelbahn"></span></button>
+    <button class="mode m7" data-go="ship"><span class="ic">🛳️</span><span data-en="Steamboat" data-de="Dampfschiff"></span></button>
   </div>
   <div class="hometrack">
     <div class="sleepers"></div><div class="rail"></div>
@@ -183,7 +212,7 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
 
 <!-- GALLERY -->
 <section id="gallery" class="screen">
-  <div class="topbar"><button class="round home" aria-label="Home">🏠</button><h2>Tap a train!</h2><div style="width:68px"></div></div>
+  <div class="topbar"><button class="round home" aria-label="Home">🏠</button><h2 data-en="Tap a train!" data-de="Tippe auf einen Zug!"></h2><div style="width:68px"></div></div>
   <div class="tgrid scroll" id="gGrid"></div>
 </section>
 
@@ -213,9 +242,30 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
   <div class="mapwrap"><svg id="chmap" preserveAspectRatio="xMidYMid meet"></svg></div>
 </section>
 
+<!-- GONDOLA -->
+<section id="gondola" class="screen gonscreen">
+  <div class="topbar find-top">
+    <button class="round home" aria-label="Home">🏠</button>
+    <div class="prompt"><button class="round" id="gRepeat" aria-label="Listen again">🔊</button><span id="gPrompt"></span></div>
+    <div class="stars" id="gStars"></div>
+  </div>
+  <div class="mapwrap"><svg id="gsvg" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMax meet" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"></svg></div>
+</section>
+
+<!-- SHIP -->
+<section id="ship" class="screen" style="padding:0">
+  <canvas id="scanvas"></canvas>
+  <div class="dhud">
+    <button class="round home" aria-label="Home">🏠</button>
+    <div id="sQ" class="qbox"></div>
+    <div class="stars" id="sStars" style="margin-left:0"></div>
+  </div>
+  <div class="dctl" style="justify-content:flex-end"><button id="sHorn" class="ctl horn" aria-label="Horn">📯</button></div>
+</section>
+
 <!-- DRIVE SELECT -->
 <section id="dselect" class="screen">
-  <div class="topbar"><button class="round home" aria-label="Home">🏠</button><h2>Which train do you want to drive?</h2><div style="width:68px"></div></div>
+  <div class="topbar"><button class="round home" aria-label="Home">🏠</button><h2 data-en="Which train do you want to drive?" data-de="Mit welchem Zug willst du fahren?"></h2><div style="width:68px"></div></div>
   <div class="tgrid scroll" id="dGrid"></div>
 </section>
 
@@ -227,6 +277,7 @@ h1{margin:0;font-size:clamp(34px,7.5vmin,80px);font-weight:700;color:#fff;text-a
     <div id="dBanner" class="banner"></div>
     <div class="counter" id="dCounter">🧍 <span id="dCount">0</span></div>
   </div>
+  <div id="mathBox" class="mathbox"><div class="eq" id="mEq"></div><div class="mq" id="mQ"></div><div class="mopts" id="mOpts"></div></div>
   <div class="dctl">
     <button id="bBrake" class="ctl brake" aria-label="Brake">STOP</button>
     <div class="midctl"><button id="bLight" class="ctl lightbtn" aria-label="Lights">💡</button><button id="bHorn" class="ctl horn" aria-label="Horn">📯</button></div>
@@ -247,7 +298,7 @@ const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 const the=t=>'the '+t.sp;
 
 /* ================= ZÜGE ================= */
-const GROUPS=[['train','🚆 Trains'],['city','🏙️ In the City'],['mountain','🏔️ Mountains & Lakes']];
+const GROUPS=[['train','🚆 Trains','🚆 Züge'],['city','🏙️ In the City','🏙️ In der Stadt'],['mountain','🏔️ Mountains & Lakes','🏔️ Berge & Seen']];
 const TRAINS=[
  // Fernverkehr / Züge
  {id:'ice',group:'train',drive:1,label:'ICE',sp:'I.C.E.',fact:'The I.C.E. is super fast! It goes all the way from Switzerland to Germany.'},
@@ -277,6 +328,36 @@ const TRAINS=[
 ];
 const TRAIN=Object.fromEntries(TRAINS.map(t=>[t.id,t]));
 
+const TRAINS_DE={
+ ice:['ICE','der','I C E','Der I C E ist super schnell. Er fährt von der Schweiz bis nach Deutschland.'],
+ tgv:['TGV','der','T G V','Der T G V ist ein schneller Zug aus Frankreich mit zwei Stockwerken. Er fährt bis nach Paris!'],
+ rjx:['Railjet','der','Railjet','Der Railjet kommt aus Österreich. Er fährt von Zürich bis nach Wien.'],
+ ec:['EuroCity','der','EuroCity','Der EuroCity fährt durch den Gotthard bis nach Italien.'],
+ nj:['Nightjet','der','Nightjet','Der Nightjet ist ein Nachtzug mit Betten. Du schläfst ein und wachst in einem anderen Land auf!'],
+ ic:['InterCity','der','InterCity','Der InterCity hat zwei Stockwerke. Von oben siehst du besonders weit!'],
+ ir:['InterRegio','der','InterRegio','Der InterRegio wird von einer grossen roten Lokomotive gezogen.'],
+ re:['RegioExpress','der','RegioExpress','Der RegioExpress verbindet Städte und hält nicht an den kleinsten Bahnhöfen.'],
+ gueter:['Güterzug','der','Güterzug','Der Güterzug fährt keine Menschen, sondern Waren in grossen Containern.'],
+ dampf:['Dampflok','die','Dampflok','Die Dampflok macht Rauch und tschu tschu! Sie fährt mit Feuer und Wasser.'],
+ s:['S-Bahn','die','S-Bahn','Die S-Bahn hält an jedem kleinen Bahnhof.'],
+ tram:['Tram','das','Tram','Das Tram fährt mitten durch die Stadt, auf Schienen in der Strasse.'],
+ metro:['Metro','die','Metro','Die Metro in Lausanne fährt ohne Lokführer und klettert unter der Stadt einen steilen Hügel hinauf!'],
+ bus:['Bus','der','Bus','Der Bus fährt auf der Strasse und hält an vielen Haltestellen.'],
+ panorama:['Panoramazug','der','Panoramazug','Der Panoramazug hat riesige Fenster. So siehst du die Berge und die Gletscher.'],
+ zahnrad:['Zahnradbahn','die','Zahnradbahn','Die Zahnradbahn klettert mit einem grossen Zahnrad steil den Berg hinauf.'],
+ funi:['Standseilbahn','die','Standseilbahn','Die Standseilbahn wird von einem starken Stahlseil den Berg hinaufgezogen.'],
+ pendel:['Luftseilbahn','die','Luftseilbahn','Die Luftseilbahn schwebt an dicken Seilen hoch über dem Tal.'],
+ gondel:['Gondelbahn','die','Gondelbahn','Die Gondelbahn hat viele kleine Kabinen, die immer im Kreis fahren.'],
+ sessel:['Sesselbahn','die','Sesselbahn','Auf der Sesselbahn sitzt du draussen und schwebst den Berg hinauf, wie auf einer Bank in der Luft!'],
+ postbus:['Postauto','das','Postauto','Das gelbe Postauto fährt hinauf zu den Bergdörfern. Hör mal, wie es hupt!'],
+ ship:['Dampfschiff','das','Dampfschiff','Das Dampfschiff fährt über den See. Seine grossen Räder platschen im Wasser.'],
+};
+TRAINS.forEach(t=>{const d=TRAINS_DE[t.id];t.labelDe=d[0];t.art=d[1];t.spDe=d[2];t.factDe=d[3];});
+const nm=t=>L(t.label,t.labelDe);
+const tEn=t=>'the '+t.sp, tDe=t=>t.art+' '+t.spDe;
+const PRAISE=[['Super!','Super!'],['Great job!','Toll gemacht!'],['Well done!','Gut gemacht!'],['Yes!','Ja, genau!'],['Hooray!','Juhui!'],['You got it!','Richtig!']];
+const praise=()=>{const p=pick(PRAISE);return L(p[0],p[1]);};
+const join=(...ms)=>L(ms.map(m=>m.en).join(' '),ms.map(m=>m.de).join(' '));
 /* ---------- SVG-Bausteine ---------- */
 const WIN='#2c3e57';
 const W8=(x,y=106,r=8)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#2b2b2b"/><circle cx="${x}" cy="${y}" r="${(r*.38).toFixed(1)}" fill="#a9b0b8"/>`;
@@ -556,11 +637,55 @@ function horn(id){
   if(kind==='ding'){tone(1568,.9,{vol:.15});tone(3136,.4,{vol:.04});return;}
   if(kind==='metro'){[[880,0],[1175,.18],[1397,.36]].forEach(([f,w])=>tone(f,.4,{vol:.13,when:w}));return;}
   if(kind==='posthorn'){[[554,0,.28],[659,.3,.28],[440,.6,.5]].forEach(([f,w,d])=>{tone(f,d,{type:'square',vol:.07,when:w,attack:.03});tone(f*2,d,{type:'triangle',vol:.05,when:w,attack:.03});});return;}
+  if(kind==='horn'||kind==='high'){const k=kind==='high'?1.2:1;hornNote([330*k,415*k],0,.38,.11);hornNote([440*k,554*k],.4,.6,.11);return;}
   const t=c.currentTime, lp=c.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=kind==='ship'?500:1800; lp.connect(c.destination);
   const dur=kind==='ship'?1.5:.85, g=c.createGain(); g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(kind==='ship'?.25:.16,t+.05);
   g.gain.setValueAtTime(kind==='ship'?.25:.16,t+dur-.15); g.gain.exponentialRampToValueAtTime(.0001,t+dur); g.connect(lp);
   const notes=kind==='ship'?[98,147]:kind==='bus'?[330,415]:[370,466,554], base=kind==='high'?1.25:1;
   notes.forEach(f=>{const o=c.createOscillator();o.type='sawtooth';o.frequency.value=f*base;o.connect(g);o.start(t);o.stop(t+dur+.05);});
+}
+function clunk(v,when=0){noise(v*.9,1600,.05,when);tone(110,.1,{vol:v*1.5,when,slideTo:55});}
+const ENG={on:false};
+function engineStart(steam){
+  const c=ac(); if(!c) return; engineStop();
+  try{
+    const out=c.createGain(); out.gain.value=0; out.connect(c.destination);
+    const len=c.sampleRate*2, b=c.createBuffer(1,len,c.sampleRate), d=b.getChannelData(0); let last=0;
+    for(let i=0;i<len;i++){const w=Math.random()*2-1;last=(last+.02*w)/1.02;d[i]=last*3.5;}
+    const src=c.createBufferSource(); src.buffer=b; src.loop=true;
+    const lp=c.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=200;
+    const rg=c.createGain(); rg.gain.value=0; src.connect(lp); lp.connect(rg); rg.connect(out); src.start();
+    const m1=c.createOscillator(), m2=c.createOscillator(); m1.type='sawtooth'; m2.type='triangle';
+    const mf=c.createBiquadFilter(); mf.type='bandpass'; mf.frequency.value=600; mf.Q.value=.9;
+    const mg=c.createGain(); mg.gain.value=0; m1.connect(mf); m2.connect(mf); mf.connect(mg); mg.connect(out); m1.start(); m2.start();
+    const sq=c.createOscillator(); sq.frequency.value=2350; const lfo=c.createOscillator(); lfo.frequency.value=6.5;
+    const lg=c.createGain(); lg.gain.value=45; lfo.connect(lg); lg.connect(sq.frequency);
+    const sg=c.createGain(); sg.gain.value=0; sq.connect(sg); sg.connect(out); sq.start(); lfo.start();
+    Object.assign(ENG,{on:true,c,out,src,lp,rg,m1,m2,mf,mg,sq,lfo,sg,steam});
+  }catch(e){ENG.on=false;}
+}
+function engineUpdate(speed,mode,dark){
+  if(!ENG.on) return; const t=ENG.c.currentTime, k=speed/MAX, tc=(n,v,tau=.15)=>n.setTargetAtTime(v,t,tau);
+  tc(ENG.out.gain,AC.on?1:0,.05);
+  tc(ENG.rg.gain,k>.01?(.06+.26*k)*(dark>.5?1.5:1):0,.2);
+  tc(ENG.lp.frequency,160+650*k+(dark>.5?-60:0),.2);
+  tc(ENG.mg.gain,ENG.steam?0:(mode==='go'?.03+.035*k:(k>.02?.01:0)),.25);
+  tc(ENG.m1.frequency,50+330*k,.25); tc(ENG.m2.frequency,100+700*k,.25); tc(ENG.mf.frequency,350+1100*k,.25);
+  tc(ENG.sg.gain,(mode==='brake'&&speed>3&&speed<150)?.012+.02*(1-speed/150):0,.06);
+}
+function engineStop(){
+  if(!ENG.on) return; ENG.on=false;
+  try{const t=ENG.c.currentTime;ENG.out.gain.setTargetAtTime(0,t,.08);[ENG.src,ENG.m1,ENG.m2,ENG.sq,ENG.lfo].forEach(n=>n.stop(t+.6));}catch(e){}
+}
+function hornNote(freqs,when,dur,vol){
+  const c=ac(); if(!c||!AC.on) return; const t=c.currentTime+when;
+  const bp=c.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=900; bp.Q.value=.7;
+  const lp=c.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=2600;
+  const g=c.createGain(); g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+.05); g.gain.setValueAtTime(vol,t+dur-.08); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  bp.connect(lp); lp.connect(g); g.connect(c.destination);
+  const vib=c.createOscillator(), vg=c.createGain(); vib.frequency.value=5; vg.gain.value=2.5; vib.connect(vg);
+  freqs.forEach((f,i)=>{[0,4].forEach(dt=>{const o=c.createOscillator();o.type=i%2?'square':'sawtooth';o.frequency.value=f+dt;vg.connect(o.frequency);o.connect(bp);o.start(t);o.stop(t+dur+.05);});});
+  vib.start(t); vib.stop(t+dur+.05);
 }
 const gong=()=>[[784,0],[659,.38],[523,.76]].forEach(([f,w])=>{tone(f,1.3,{vol:.2,when:w});tone(f*2,.6,{vol:.04,when:w});});
 const success=()=>[523,659,784,1047].forEach((f,i)=>tone(f,.3,{type:'triangle',vol:.2,when:i*.09}));
@@ -578,42 +703,53 @@ const hop=()=>{tone(700,.12,{slideTo:1500,vol:.15});tone(900,.12,{slideTo:1900,v
 const charSfx=()=>charKey==='cat'?meow():hop();
 const doorChime=()=>{tone(988,.5,{vol:.15});tone(784,.7,{vol:.15,when:.3});};
 
-/* ================= STIMME (Englisch, Hase/Katze) ================= */
+/* ================= SPRACHE & STIMME ================= */
+let LANG='both';
+try{const l=localStorage.getItem('zug-lang');if(['both','en','de'].includes(l))LANG=l;}catch(e){}
+const L=(en,de)=>({en,de:de===undefined?en:de});
+const T=m=>{m=typeof m==='string'?{en:m,de:m}:m;if(LANG==='en')return m.en;if(LANG==='de')return m.de;return m.en===m.de?m.en:`${m.en}<span class="dl">${m.de}</span>`;};
 const CHARS={
-  bunny:{emoji:'🐰',pitch:1.9,rate:1.07,hello:'Hi! I am Hoppy the bunny!'},
-  cat:{emoji:'🐱',pitch:1.5,rate:.97,hello:'Meow! I am Whiskers the cat!'}
+  bunny:{emoji:'🐰',pitch:1.75,rate:.78,hello:L('Hi! I am Hoppy the bunny!','Hallo! Ich bin Hoppel, der Hase!')},
+  cat:{emoji:'🐱',pitch:1.45,rate:.76,hello:L('Meow! I am Whiskers the cat!','Miau! Ich bin Mimi, die Katze!')}
 };
 let charKey='bunny';
 try{if(localStorage.getItem('zug-char')==='cat')charKey='cat';}catch(e){}
-const NOVELTY=/bubbles|bells|boing|whisper|zarvox|trinoids|albert|bad news|good news|jester|organ|cellos|superstar|wobble|hysterical|deranged|bahh|fred|ralph|junior|kathy|princess|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley/i;
-function voiceScore(v){
-  if(!/^en/i.test(v.lang)||NOVELTY.test(v.name)) return -1;
+const NOVELTY=/bubbles|bells|boing|whisper|zarvox|trinoids|albert|bad news|good news|jester|organ|cellos|superstar|wobble|hysterical|deranged|bahh|fred|ralph|junior|kathy|princess|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley|oma|opa/i;
+function voiceScore(v,lg){
+  if(!new RegExp('^'+lg,'i').test(v.lang)||NOVELTY.test(v.name)) return -1;
   let s=1;
-  if(/premium|enhanced|natural|neural|online/i.test(v.name)) s+=6;
-  if(/samantha|ava|allison|susan|zoe|karen|serena|aria|jenny|libby|sonia|emma|moira|tessa|nicky|google us english|google uk english female/i.test(v.name)) s+=3;
-  if(/en[-_](US|GB)/i.test(v.lang)) s+=1;
+  if(/premium|enhanced|erweitert|natural|neural|online/i.test(v.name)) s+=6;
+  if(lg==='en'&&/samantha|ava|allison|susan|zoe|karen|serena|aria|jenny|libby|sonia|emma|moira|tessa|nicky|google us english|google uk english female/i.test(v.name)) s+=3;
+  if(lg==='de'&&/anna|petra|helena|katja|marlene|vicki|amala|seraina|leni|google deutsch/i.test(v.name)) s+=3;
+  if(lg==='en'&&/en[-_](US|GB)/i.test(v.lang)) s+=1;
+  if(lg==='de'&&/de[-_](DE|CH)/i.test(v.lang)) s+=1;
   return s;
 }
-const Voice={v:null,pick(){
-  try{const vs=speechSynthesis.getVoices();let best=null,bs=-1;
-    for(const v of vs){const sc=voiceScore(v);if(sc>bs){bs=sc;best=v;}}
-    this.v=bs>=0?best:null;}catch(e){}
+const Voice={en:null,de:null,pick(){
+  try{const vs=speechSynthesis.getVoices();
+    for(const lg of ['en','de']){let best=null,bs=-1;for(const v of vs){const sc=voiceScore(v,lg);if(sc>bs){bs=sc;best=v;}}this[lg]=bs>=0?best:null;}}catch(e){}
 }};
 if('speechSynthesis' in window){Voice.pick();speechSynthesis.onvoiceschanged=()=>Voice.pick();}
 const buddyEl=()=>document.getElementById('buddy');
-function say(text,done){
+function say(m,done){
+  m=typeof m==='string'?{en:m,de:m}:m;
+  const parts=LANG==='en'?[['en',m.en]]:LANG==='de'?[['de',m.de]]:[['en',m.en],['de',m.de]];
+  const total=parts.reduce((a,p)=>a+p[1].length,0);
   let called=false; const fin=()=>{if(called)return;called=true;buddyEl().classList.remove('talk');done&&done();};
-  if(!AC.on||!('speechSynthesis' in window)){setTimeout(fin,700+text.length*35);return;}
+  if(!AC.on||!('speechSynthesis' in window)){setTimeout(fin,800+total*45);return;}
   const ch=CHARS[charKey];
   try{
     speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(text);
-    u.lang=Voice.v?Voice.v.lang:'en-US'; if(Voice.v) u.voice=Voice.v;
-    u.rate=ch.rate; u.pitch=ch.pitch; u.onend=fin; u.onerror=fin;
     if(current!=='home'){const b=buddyEl();b.textContent=ch.emoji;b.classList.add('talk');}
-    speechSynthesis.speak(u);
+    parts.forEach(([lg,t],i)=>{
+      const u=new SpeechSynthesisUtterance(t), v=Voice[lg];
+      u.lang=v?v.lang:(lg==='en'?'en-US':'de-DE'); if(v) u.voice=v;
+      u.rate=ch.rate; u.pitch=ch.pitch;
+      if(i===parts.length-1){u.onend=fin;u.onerror=fin;}
+      speechSynthesis.speak(u);
+    });
   }catch(e){}
-  setTimeout(fin,1600+text.length*80);
+  setTimeout(fin,2200+total*115+parts.length*500);
 }
 function hush(){try{speechSynthesis.cancel();}catch(e){}const b=document.getElementById('buddy');if(b)b.classList.remove('talk');}
 let unlocked=false;
@@ -643,31 +779,38 @@ function burst(n=170){
   };
   requestAnimationFrame(step);
 }
-function celebrate(text,done){burst();fanfare();setTimeout(()=>say(text,done),500);}
+function celebrate(text,done){ /* text = L(en,de) */burst();fanfare();setTimeout(()=>say(text,done),500);}
 
 /* ================= NAVIGATION ================= */
 let current='home';
 function show(id){
   if(current==='drive'&&id!=='drive') driveStop();
+  if(current==='ship'&&id!=='ship') shipStop();
+  if(current==='gondola'&&id!=='gondola') gonStop();
   $$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
   current=id;
 }
 $$('.home').forEach(b=>b.addEventListener('click',()=>{hush();popS();show('home');}));
 $$('.mode').forEach(b=>b.addEventListener('click',()=>{
   popS(); const g=b.dataset.go;
-  if(g==='map') openMap(); else if(g==='gallery') openGallery(); else if(g==='find') openFind(); else if(g==='memory') openMemory(); else openDriveSelect();
+  if(g==='gondola') openGondola(); else if(g==='ship') openShip(); else if(g==='map') openMap(); else if(g==='gallery') openGallery(); else if(g==='find') openFind(); else if(g==='memory') openMemory(); else openDriveSelect();
 }));
 
 function trainCard(t,withName){
   const b=document.createElement('button'); b.className='tcard';
-  b.innerHTML=`<img src="${svgURL(t.id)}" alt="${t.label}" draggable="false">${withName?`<span class="tname">${t.label}</span>`:''}`;
+  b.innerHTML=`<img src="${svgURL(t.id)}" alt="${t.label}" draggable="false">${withName?`<span class="tname">${T(nm(t))}</span>`:''}`;
   return b;
 }
-
 function groupedCards(g,list,make){
-  GROUPS.forEach(([key,title])=>{const items=list.filter(t=>t.group===key);if(!items.length)return;
-    const h=document.createElement('div');h.className='ghead';h.textContent=title;g.appendChild(h);
+  GROUPS.forEach(([key,en,de])=>{const items=list.filter(t=>t.group===key);if(!items.length)return;
+    const h=document.createElement('div');h.className='ghead';h.innerHTML=T(L(en,de));g.appendChild(h);
     items.forEach(t=>{const el=make(t);if(el&&!el.parentNode)g.appendChild(el);});});
+}
+const LANG_LABEL={both:'EN+DE',en:'EN',de:'DE'};
+function applyLang(){
+  $$('[data-en]').forEach(e=>e.innerHTML=T(L(e.dataset.en,e.dataset.de)));
+  $('#btnLang').textContent=LANG_LABEL[LANG]; document.documentElement.lang=LANG==='de'?'de':'en';
+  $('#gGrid').innerHTML=''; $('#dGrid').innerHTML=''; if(typeof MG!=='undefined') MG.built=false;
 }
 /* ---------- Home ---------- */
 const soundBtn=$('#btnSound');
@@ -683,6 +826,11 @@ soundBtn.addEventListener('click',()=>{AC.on=!AC.on;if(!AC.on)hush();try{localSt
     try{ if(fs)(document.exitFullscreen||document.webkitExitFullscreen).call(document); else req.call(el); }catch(e){}
   });
 })();
+$('#btnLang').addEventListener('click',()=>{
+  LANG=LANG==='both'?'en':LANG==='en'?'de':'both'; try{localStorage.setItem('zug-lang',LANG);}catch(e){}
+  applyLang(); popS();
+  say(LANG==='both'?L('English and German','Englisch und Deutsch'):LANG==='en'?L('Only English'):L('Nur Deutsch','Nur Deutsch'));
+});
 const charBtn=$('#btnChar');
 charBtn.textContent=CHARS[charKey].emoji;
 charBtn.addEventListener('click',()=>{
@@ -693,7 +841,7 @@ charBtn.addEventListener('click',()=>{
 let homeIdx=0; const homeOrder=shuffle(TRAINS.filter(t=>t.drive).map(t=>t.id));
 const homeImg=$('#homeTrain'); homeImg.src=svgURL(homeOrder[0],true);
 $('#homeRun').addEventListener('animationiteration',()=>{homeIdx=(homeIdx+1)%homeOrder.length;homeImg.src=svgURL(homeOrder[homeIdx],true);});
-$('#homeRun').addEventListener('click',()=>{const t=TRAIN[homeOrder[homeIdx]];horn(t.id);setTimeout(()=>say(`The ${t.sp}!`),800);});
+$('#homeRun').addEventListener('click',()=>{const t=TRAIN[homeOrder[homeIdx]];horn(t.id);setTimeout(()=>say(L(`The ${t.sp}!`,`${cap(t.art)} ${t.spDe}!`)),800);});
 
 /* ---------- Kennenlernen ---------- */
 function openGallery(){
@@ -701,10 +849,10 @@ function openGallery(){
   if(!g.childElementCount) groupedCards(g,TRAINS,t=>{
     const c=trainCard(t,true);
     c.addEventListener('click',()=>{c.classList.remove('bounce');void c.offsetWidth;c.classList.add('bounce');hush();horn(t.id);
-      setTimeout(()=>say(`This is ${the(t)}. ${t.fact}`),900);});
+      setTimeout(()=>say(L(`This is ${tEn(t)}. ${t.fact}`,`Das ist ${tDe(t)}. ${t.factDe}`)),900);});
     g.appendChild(c);
   });
-  g.scrollTop=0; say('Tap a train!');
+  g.scrollTop=0; say(L('Tap a train!','Tippe auf einen Zug!'));
 }
 
 /* ---------- Finde den Zug ---------- */
@@ -716,10 +864,10 @@ function findNext(){
   const opts=shuffle([t,...shuffle(TRAINS.filter(x=>x.id!==t.id)).slice(0,2)]);
   const box=$('#fChoices'); box.innerHTML='';
   opts.forEach(o=>{const c=trainCard(o,false);c.classList.add('ccard');c.addEventListener('click',()=>findTap(c,o));box.appendChild(c);});
-  $('#fPrompt').innerHTML=`Where is the <b>${t.label}</b>?`;
-  say(`Where is ${the(t)}?`);
+  $('#fPrompt').innerHTML=T(L(`Where is the <b>${t.label}</b>?`,`Wo ist ${t.art} <b>${t.labelDe}</b>?`));
+  say(L(`Where is ${tEn(t)}?`,`Wo ist ${tDe(t)}?`));
 }
-$('#fRepeat').addEventListener('click',()=>{if(!F.busy&&F.target) say(`Where is ${the(F.target)}?`);});
+$('#fRepeat').addEventListener('click',()=>{if(!F.busy&&F.target) say(L(`Where is ${tEn(F.target)}?`,`Wo ist ${tDe(F.target)}?`));});
 function findTap(card,o){
   if(F.busy) return;
   if(o.id===F.target.id){
@@ -727,17 +875,17 @@ function findTap(card,o){
     card.classList.add('right'); success(); setTimeout(charSfx,250);
     setTimeout(()=>{horn(o.id);card.classList.add('driveoff');},380);
     F.stars++; drawStars();
-    const praise=pick(['Super!','Great job!','Well done!','Yes!','Hooray!','You got it!']);
-    const txt=Math.random()<.5?`${praise} ${o.fact}`:`${praise} That is ${the(o)}.`;
+    const pr=praise();
+    const txt=Math.random()<.5?join(pr,L(o.fact,o.factDe)):join(pr,L(`That is ${tEn(o)}.`,`Das ist ${tDe(o)}.`));
     setTimeout(()=>{ if(tok!==F.tok||current!=='find') return;
       say(txt,()=>{ if(tok!==F.tok||current!=='find') return;
-        if(F.stars>=5) celebrate('Wonderful! Five stars! You are a real train expert!',()=>{if(tok!==F.tok||current!=='find')return;F.stars=0;drawStars();findNext();});
+        if(F.stars>=5) celebrate(L('Wonderful! Five stars! You are a real train expert!','Wunderbar! Fünf Sterne! Du bist ein echter Zug-Profi!'),()=>{if(tok!==F.tok||current!=='find')return;F.stars=0;drawStars();findNext();});
         else findNext();
       });
     },1100);
   } else {
     card.classList.remove('shake');void card.offsetWidth;card.classList.add('shake');boing();
-    say(`That is ${the(o)}. Where is ${the(F.target)}?`);
+    say(L(`That is ${tEn(o)}. Where is ${tEn(F.target)}?`,`Das ist ${tDe(o)}. Wo ist ${tDe(F.target)}?`));
   }
 }
 
@@ -753,7 +901,7 @@ function newMemory(){
     c.innerHTML=`<div class="inner"><div class="face back"><span>🚆</span></div><div class="face front"><img src="${svgURL(t.id)}" alt="" draggable="false"></div></div>`;
     c.addEventListener('click',()=>memTap(c,t)); g.appendChild(c);
   });
-  say('Find the pairs! Tap two cards.');
+  say(L('Find the pairs! Tap two cards.','Finde die Paare! Tippe auf zwei Karten.'));
 }
 $('#mNew').addEventListener('click',()=>{popS();newMemory();});
 function memTap(c,t){
@@ -765,8 +913,8 @@ function memTap(c,t){
     M.found++; const last=M.found===6;
     setTimeout(()=>{ if(tok!==M.tok) return;
       a.c.classList.add('done'); c.classList.add('done'); success(); setTimeout(charSfx,250);
-      if(last){ setTimeout(()=>{ if(tok!==M.tok) return; celebrate(`The ${t.sp}! Super, you found all the pairs!`); $('#mNew').classList.add('pulse'); },500); }
-      else say(`The ${t.sp}!`);
+      if(last){ setTimeout(()=>{ if(tok!==M.tok) return; celebrate(L(`The ${t.sp}! Super, you found all the pairs!`,`${cap(t.art)} ${t.spDe}! Super, du hast alle Paare gefunden!`)); $('#mNew').classList.add('pulse'); },500); }
+      else say(L(`The ${t.sp}!`,`${cap(t.art)} ${t.spDe}!`));
     },450);
   } else {
     M.lock=true;
@@ -807,6 +955,32 @@ const PLACES=[
  {id:'llucerne',lv:3,name:'Lake Lucerne',lat:46.97,lon:8.62,e:'⛵',lake:1,hint:'On Lake Lucerne you can ride old paddle steamers.'},
  {id:'lzurich',lv:3,name:'Lake Zurich',lat:47.2,lon:8.8,e:'⛵',lake:1,hint:'Lake Zurich is long and narrow, next to the city of Zurich.'},
 ];
+const PLACES_DE={zurich:['Zürich','','Zürich ist die grösste Stadt der Schweiz. Sie hat einen grossen Bahnhof.'],
+ bern:['Bern','','Bern ist die Hauptstadt der Schweiz. Dort gibt es echte Bären!'],
+ basel:['Basel','','Basel liegt am Rhein, neben Frankreich und Deutschland. Dort gibt es eine grosse Fasnacht mit Masken.'],
+ geneva:['Genf','','Genf hat einen riesigen Springbrunnen im See.'],
+ lugano:['Lugano','','In Lugano wachsen Palmen, und die Leute sprechen Italienisch.'],
+ lucerne:['Luzern','','Luzern hat eine alte Holzbrücke mit Blumen.'],
+ stgallen:['St. Gallen','','St. Gallen hat eine sehr alte und schöne Bibliothek.'],
+ lausanne:['Lausanne','','Lausanne ist die olympische Stadt und hat eine Metro ohne Lokführer.'],
+ chur:['Chur','','Chur ist die älteste Stadt der Schweiz.'],
+ matterhorn:['Matterhorn','das','Das Matterhorn ist der berühmteste Berg. Er sieht aus wie ein riesiger Zahn!'],
+ lgeneva:['Genfersee','der','Der Genfersee ist der grösste See. Darauf fahren Dampfschiffe.'],
+ interlaken:['Interlaken','','In Interlaken fliegen die Leute mit Gleitschirmen zwischen zwei Seen.'],
+ jungfrau:['Jungfrau','die','Ein Zug fährt auf die Jungfrau, zum höchsten Bahnhof Europas!'],
+ schaffhausen:['Schaffhausen','','Bei Schaffhausen ist der Rheinfall, ein riesiger Wasserfall!'],
+ neuchatel:['Neuchâtel','','Neuchâtel ist berühmt für Uhren.'],
+ fribourg:['Fribourg','','Bei Fribourg macht man feinen Greyerzer Käse.'],
+ sion:['Sion','','Rund um Sion wachsen viele Trauben und Aprikosen.'],
+ locarno:['Locarno','','Locarno hat ein grosses Filmfestival unter den Sternen.'],
+ stmoritz:['St. Moritz','','In St. Moritz kannst du auf einem gefrorenen See Schlittschuh laufen.'],
+ davos:['Davos','','Davos liegt hoch in den Bergen, super zum Skifahren.'],
+ saentis:['Säntis','der','Der Säntis ist der grosse Berg im Osten. Eine Seilbahn fährt hinauf.'],
+ lconstance:['Bodensee','der','Der Bodensee grenzt an die Schweiz, Deutschland und Österreich.'],
+ llucerne:['Vierwaldstättersee','der','Auf dem Vierwaldstättersee fahren alte Raddampfer.'],
+ lzurich:['Zürichsee','der','Der Zürichsee ist lang und schmal, gleich neben der Stadt Zürich.']};
+PLACES.forEach(p=>{const d=PLACES_DE[p.id];p.nameDe=d[0];p.artDe=d[1];p.hintDe=d[2];p.artEn=p.mtn?'the ':'';});
+const pEn=p=>p.artEn+p.name, pDe=p=>(p.artDe?p.artDe+' ':'')+p.nameDe, pLabel=p=>LANG==='en'?p.name:p.nameDe;
 const RAILNET=[['geneva','lausanne'],['lausanne','fribourg'],['fribourg','bern'],['lausanne','neuchatel'],['bern','zurich'],['basel','zurich'],['basel','bern'],
  ['zurich','stgallen'],['zurich','schaffhausen'],['zurich','lucerne'],['zurich','chur'],['lucerne','lugano'],['lugano','locarno'],['bern','interlaken'],
  ['lausanne','sion'],['sion','matterhorn'],['chur','stmoritz'],['chur','davos'],['interlaken','jungfrau']];
@@ -816,8 +990,8 @@ const el=(tag,attrs,parent)=>{const e=document.createElementNS(NS,tag);for(const
 function buildMap(){
   const svg=$('#chmap'); svg.innerHTML='';
   const [x0,y0,x1,y1]=GEO.bbox; svg.setAttribute('viewBox',`${x0-70} ${y0-40} ${x1-x0+140} ${y1-y0+80}`);
-  [['GERMANY',47.92,8.6],['FRANCE',46.55,5.75],['ITALY',45.72,8.0],['AUSTRIA',47.05,10.62]].forEach(([t,la,lo])=>{
-    const [x,y]=mp(la,lo); el('text',{x,y,'text-anchor':'middle','font-size':24,'font-weight':700,fill:'#7f9bb5','letter-spacing':3,'font-family':'Fredoka, sans-serif'},svg).textContent=t;});
+  [['GERMANY','DEUTSCHLAND',47.92,8.6],['FRANCE','FRANKREICH',46.85,5.82],['ITALY','ITALIEN',45.72,8.0],['AUSTRIA','ÖSTERREICH',47.0,10.58]].forEach(([te,td,la,lo])=>{const t=LANG==='de'?td:te;
+    const [x,y]=mp(la,lo); const rot=te==='FRANCE'?-90:te==='AUSTRIA'?90:0; el('text',{x,y,transform:rot?`rotate(${rot} ${x} ${y})`:'','text-anchor':'middle','font-size':24,'font-weight':700,fill:'#7f9bb5','letter-spacing':3,'font-family':'Fredoka, sans-serif'},svg).textContent=t;});
   el('path',{d:GEO.country,fill:'#a6d98a',stroke:'#fff','stroke-width':10,'stroke-linejoin':'round'},svg);
   el('path',{d:GEO.country,fill:'#a6d98a',stroke:'#e2001a','stroke-width':3,'stroke-linejoin':'round'},svg);
   el('path',{d:GEO.cantons,fill:'none',stroke:'rgba(255,255,255,.75)','stroke-width':1.3,'stroke-linejoin':'round'},svg);
@@ -840,25 +1014,25 @@ function drawPlaces(){
     const dot=el('g',{class:'dot'},gg);
     el('circle',{class:'bg',r,fill:p.lake?'#e3f2ff':'#fff',stroke:p.mtn?'#8e5cf7':p.lake?'#1f6fd1':'#e2001a','stroke-width':4},dot);
     const t=el('text',{y:10*sc,'text-anchor':'middle','font-size':28*sc},dot); t.textContent=p.e;
-    const lab=el('text',{y:p.up?-(r+8):r+22,'text-anchor':'middle','font-size':MG.lv>=3?17:19,'font-weight':600,fill:'#1d2b3a',stroke:'#fff','stroke-width':5,'paint-order':'stroke','font-family':'Fredoka, sans-serif'},gg); lab.textContent=p.name;
+    const lab=el('text',{y:p.up?-(r+8):r+22,'text-anchor':'middle','font-size':MG.lv>=3?17:19,'font-weight':600,fill:'#1d2b3a',stroke:'#fff','stroke-width':5,'paint-order':'stroke','font-family':'Fredoka, sans-serif'},gg); lab.textContent=pLabel(p);
     gg.addEventListener('click',()=>mapTap(gg,p));
   });
 }
 function openMap(){
-  show('map'); if(!MG.built) buildMap();
+  show('map'); if(!MG.built){buildMap();}
   MG.tok++; MG.stars=0; MG.target=null; MG.last=null; MG.busy=false; $('#trips').innerHTML='';
   drawPlaces(); drawMapStars();
-  say('Let\'s travel through Switzerland!',()=>{if(current==='map')mapNext();});
+  say(L('Let\'s travel through Switzerland!','Komm, wir reisen durch die Schweiz!'),()=>{if(current==='map')mapNext();});
 }
 function drawMapStars(){$('#mStars').innerHTML=Array.from({length:5},(_,i)=>`<span class="${i<MG.stars?'on':''}">★</span>`).join('')+`<span class="lvl">Level ${MG.lv}</span>`;}
 function mapNext(){
   MG.busy=false; const vis=PLACES.filter(p=>p.lv<=MG.lv);
   const fresh=vis.filter(p=>p.lv===MG.lv&&(!MG.target||p.id!==MG.target.id));
   let t; do{t=Math.random()<.6&&fresh.length?pick(fresh):pick(vis);}while(MG.target&&t.id===MG.target.id);
-  MG.target=t; $('#mPrompt').innerHTML=`Where is <b>${t.name}</b>?`;
-  say(`Where is ${t.name}?`);
+  MG.target=t; $('#mPrompt').innerHTML=T(L(`Where is <b>${pEn(t)}</b>?`,`Wo ist <b>${pDe(t)}</b>?`));
+  say(L(`Where is ${pEn(t)}?`,`Wo ist ${pDe(t)}?`));
 }
-$('#mRepeat').addEventListener('click',()=>{if(!MG.busy&&MG.target)say(`Where is ${MG.target.name}? ${MG.target.hint}`);});
+$('#mRepeat').addEventListener('click',()=>{if(!MG.busy&&MG.target){const t=MG.target;say(L(`Where is ${pEn(t)}? ${t.hint}`,`Wo ist ${pDe(t)}? ${t.hintDe}`));}});
 function travel(from,to,done){
   const [ax,ay]=mp(from.lat,from.lon),[bx,by]=mp(to.lat,to.lon);
   el('line',{x1:ax,y1:ay,x2:bx,y2:by,stroke:'#e2001a','stroke-width':5,'stroke-dasharray':'10 8','stroke-linecap':'round',opacity:.8},$('#trips'));
@@ -878,10 +1052,10 @@ function mapTap(gg,p){
     gg.classList.remove('right');void gg.getBBox();gg.classList.add('right','done'); success(); setTimeout(charSfx,250);
     MG.stars++; drawMapStars();
     const go=()=>{ if(tok!==MG.tok||current!=='map')return;
-      say(`${pick(['Yes!','Great job!','Well done!','Super!'])} This is ${p.name}. ${p.hint}`,()=>{ if(tok!==MG.tok||current!=='map')return;
+      say(join(praise(),L(`This is ${pEn(p)}. ${p.hint}`,`Das ist ${pDe(p)}. ${p.hintDe}`)),()=>{ if(tok!==MG.tok||current!=='map')return;
         if(MG.stars>=5){
           const maxLv=3, up=MG.lv<maxLv;
-          celebrate(up?`Fantastic! Five stars! Now there are more places on the map. Level ${MG.lv+1}!`:'Fantastic! You know all of Switzerland! You are a real explorer!',()=>{
+          celebrate(up?L(`Fantastic! Five stars! Now there are more places on the map. Level ${MG.lv+1}!`,`Fantastisch! Fünf Sterne! Jetzt gibt es mehr Orte auf der Karte. Level ${MG.lv+1}!`):L('Fantastic! You know all of Switzerland! You are a real explorer!','Fantastisch! Du kennst die ganze Schweiz! Du bist ein echter Entdecker!'),()=>{
             if(tok!==MG.tok||current!=='map')return; if(up)MG.lv++; MG.stars=0; drawPlaces(); drawMapStars(); mapNext();});
         } else mapNext();
       });};
@@ -889,12 +1063,247 @@ function mapTap(gg,p){
     MG.last=p;
   } else {
     gg.classList.remove('wrong');void gg.getBBox();gg.classList.add('wrong');boing();
-    say(`That is ${p.name}. Where is ${MG.target.name}?`);
+    say(L(`That is ${pEn(p)}. Where is ${pEn(MG.target)}?`,`Das ist ${pDe(p)}. Wo ist ${pDe(MG.target)}?`));
   }
 }
 
+
+/* ================= GONDELBAHN-SPIEL ================= */
+const GCOL=[{en:'red',de:'rot',c:'#e2001a'},{en:'blue',de:'blau',c:'#1565c0'},{en:'yellow',de:'gelb',c:'#ffc400'},
+  {en:'green',de:'grün',c:'#2e9e4f'},{en:'orange',de:'orange',c:'#ff7a00'},{en:'purple',de:'lila',c:'#8e5cf7'}];
+const inf=(c,e)=>(c==='orange'||c==='lila')?c:c+e;
+const NUM_EN=['zero','one','two','three','four','five'], NUM_DE=['null','eins','zwei','drei','vier','fünf'];
+const G={tok:0,lv:1,stars:0,busy:true,built:false,raf:0};
+const GA=[205,330], GB=[870,92], GAr=[205,305], GBr=[870,68];
+const gl=(a,b,k)=>[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k];
+function gonBuild(){
+  const svg=$('#gsvg'); svg.innerHTML='';
+  const E=(t,a,p=svg)=>el(t,a,p);
+  E('rect',{x:-600,y:-900,width:2200,height:1220,fill:'url(#gsky)'});
+  const defs=E('defs',{}); defs.innerHTML='<linearGradient id="gsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ec2ff"/><stop offset="1" stop-color="#d9f1ff"/></linearGradient>';
+  E('circle',{cx:120,cy:80,r:42,fill:'#ffd84d'});
+  E('path',{d:'M-600,520 L-300,300 L120,250 L260,360 L430,150 L600,330 L760,60 L960,260 L1250,150 L1600,300 L1600,560 Z',fill:'#a8c4dc'});
+  E('path',{d:'M395,180 L430,150 L465,182 L448,176 L430,192 L414,176 Z M728,88 L760,60 L792,90 L776,84 L760,100 L744,84 Z',fill:'#fff'});
+  E('path',{d:'M-600,1400 L-600,500 Q300,360 700,250 T1600,100 L1600,1400 Z',fill:'#f4f8fc'});
+  E('path',{d:'M-600,1400 L-600,540 Q400,470 1600,430 L1600,1400 Z',fill:'#e3edf6'});
+  [[330,300],[380,330],[560,250],[640,215],[300,345]].forEach(([x,y])=>E('path',{d:`M${x},${y} l18,-50 l18,50 Z`,fill:'#2e7d32'}));
+  // Stationen
+  E('rect',{x:830,y:40,width:150,height:96,rx:6,fill:'#c9b79c'});E('path',{d:'M818,44 L905,8 L992,44 Z',fill:'#8a5a44'});
+  E('rect',{x:842,y:62,width:46,height:56,fill:'#3a3a3a'});
+  E('text',{x:930,y:110,'font-size':40,'text-anchor':'middle'},svg).textContent='🐐';
+  E('rect',{x:60,y:270,width:220,height:200,rx:8,fill:'#c9b79c'});E('path',{d:'M44,276 L170,224 L296,276 Z',fill:'#8a5a44'});
+  E('rect',{x:120,y:296,width:170,height:174,fill:'#5b5049'});
+  E('rect',{x:-600,y:520,width:2200,height:22,fill:'#9c8f80'});
+  // Seile
+  E('line',{x1:GA[0],y1:GA[1],x2:GB[0],y2:GB[1],stroke:'#333','stroke-width':3});
+  E('line',{x1:GAr[0],y1:GAr[1],x2:GBr[0],y2:GBr[1],stroke:'#333','stroke-width':3});
+  E('rect',{x:560,y:150,width:14,height:380,fill:'#777'}); E('rect',{x:540,y:150,width:54,height:10,fill:'#666'});
+  E('g',{id:'gcab'}); E('g',{id:'gpeople'}); E('g',{id:'gfx'});
+  G.built=true;
+}
+function gonCabin(col){
+  const g=$('#gcab'); g.innerHTML='';
+  const cab=el('g',{},g);
+  el('circle',{cx:0,cy:0,r:7,fill:'#444'},cab); el('rect',{x:-4,y:0,width:8,height:40,fill:'#555'},cab);
+  el('rect',{x:-58,y:40,width:116,height:96,rx:22,fill:col.c,stroke:'rgba(0,0,0,.3)','stroke-width':3},cab);
+  el('rect',{x:-46,y:52,width:92,height:44,rx:10,fill:'#2c3e57'},cab);
+  el('g',{class:'faces'},cab);
+  const badge=el('g',{class:'badge'},cab);
+  G.cab=cab; G.cabFaces=cab.querySelector('.faces'); G.cabBadge=badge;
+  return cab;
+}
+function gonCabPos(x,y,rot=0){G.cab.setAttribute('transform',`translate(${x},${y}) rotate(${rot})`);G.cabX=x;G.cabY=y;}
+function gonAnim(path,dur,done){
+  const t0=performance.now(), tok=G.tok;
+  const step=now=>{ if(tok!==G.tok) return; const k=Math.min(1,(now-t0)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    const [x,y]=path(e); gonCabPos(x,y,Math.sin(now/180)*2*(1-k)); if(k<1) G.raf=requestAnimationFrame(step); else done&&done(); };
+  G.raf=requestAnimationFrame(step);
+}
+function gonPerson(x,col,idx){
+  const g=el('g',{class:'gp',transform:`translate(${x},530)`},$('#gpeople'));
+  const b=el('g',{class:'body'},g);
+  el('rect',{x:-40,y:-175,width:80,height:180,fill:'transparent'},b);
+  el('rect',{x:-20,y:-50,width:16,height:50,rx:5,fill:'#3a3a3a'},b); el('rect',{x:4,y:-50,width:16,height:50,rx:5,fill:'#3a3a3a'},b);
+  el('rect',{x:-32,y:-118,width:64,height:76,rx:18,fill:col.c,stroke:'rgba(0,0,0,.2)','stroke-width':3},b);
+  el('rect',{x:-44,y:-112,width:14,height:52,rx:7,fill:col.c},b); el('rect',{x:30,y:-112,width:14,height:52,rx:7,fill:col.c},b);
+  el('circle',{cx:0,cy:-142,r:26,fill:'#f1c27d'},b);
+  el('path',{d:'M-27,-148 Q0,-188 27,-148 Z',fill:'#f4f4f4',stroke:'#ccc','stroke-width':2},b); el('circle',{cx:0,cy:-176,r:7,fill:'#f4f4f4'},b);
+  el('circle',{cx:-9,cy:-142,r:3,fill:'#222'},b); el('circle',{cx:9,cy:-142,r:3,fill:'#222'},b);
+  el('path',{d:'M-8,-131 Q0,-124 8,-131',stroke:'#222','stroke-width':2.5,fill:'none'},b);
+  const person={g,col,x,idx};
+  g.addEventListener('click',()=>gonTap(person));
+  return person;
+}
+function openGondola(){
+  show('gondola'); if(!G.built) gonBuild();
+  G.tok++; G.stars=0; G.people=[]; G.last=null; $('#gpeople').innerHTML=''; drawGStars();
+  say(L('Welcome to the gondola lift! Help the skiers ride up the mountain.','Willkommen bei der Gondelbahn! Hilf den Skifahrern auf den Berg.'),()=>{if(current==='gondola')gonRound();});
+}
+function gonStop(){cancelAnimationFrame(G.raf);G.tok++;}
+function drawGStars(){$('#gStars').innerHTML=Array.from({length:5},(_,i)=>`<span class="${i<G.stars?'on':''}">★</span>`).join('')+`<span class="lvl">Level ${G.lv}</span>`;}
+function gonRound(){
+  G.busy=true; const tok=G.tok;
+  let col; do{col=pick(GCOL);}while(G.last&&col.en===G.last.en); G.last=col;
+  G.need=G.lv===1?1:G.lv===2?2+Math.floor(Math.random()*2):2+Math.floor(Math.random()*3); G.loaded=0; G.col=col;
+  // Leute auffüllen: 5 Plätze
+  const slots=[350,480,610,740,870];
+  G.people=G.people.filter(p=>p.g.isConnected);
+  const have=G.people.filter(p=>p.col.en===col.en).length;
+  let needAdd=Math.max(0,G.need-have);
+  const free=slots.filter(x=>!G.people.some(p=>p.x===x));
+  shuffle(free).forEach(x=>{ const c=needAdd>0?(needAdd--,col):pick(GCOL); G.people.push(gonPerson(x,c)); });
+  gonCabin(col);
+  const badge=G.cabBadge; badge.innerHTML='';
+  if(G.need>1){ el('circle',{cx:50,cy:40,r:22,fill:'#fff',stroke:col.c,'stroke-width':4},badge); el('text',{x:50,y:51,'text-anchor':'middle','font-size':32,'font-weight':700,fill:'#1d2b3a','font-family':'Fredoka, sans-serif'},badge).textContent=G.need; }
+  gonCabPos(GBr[0],GBr[1]);
+  gonAnim(k=>gl(GBr,GAr,k),2600,()=>gonAnim(k=>[GA[0],GAr[1]+(GA[1]-GAr[1])*k],400,()=>{
+    if(tok!==G.tok) return; G.busy=false; tone(1568,.6,{vol:.12});
+    gonAsk();
+  }));
+  horn('gondel');
+}
+function gonAsk(){
+  const c=G.col, n=G.need;
+  const m=n===1?L(`The ${c.en} gondola is here! Who has a ${c.en} jacket?`,`Die ${inf(c.de,'e')} Gondel ist da! Wer hat eine ${inf(c.de,'e')} Jacke?`)
+    :L(`The ${c.en} gondola has room for ${n} people. Tap ${n} people with ${c.en} jackets!`,`In der ${inf(c.de,'en')} Gondel haben ${n} Leute Platz. Tippe auf ${n} Leute mit ${inf(c.de,'en')} Jacken!`);
+  $('#gPrompt').innerHTML=T(n===1?L(`Who has a <b style="color:${c.c}">${c.en}</b> jacket?`,`Wer hat eine <b style="color:${c.c}">${inf(c.de,'e')}</b> Jacke?`)
+    :L(`Tap ${n} <b style="color:${c.c}">${c.en}</b> jackets!`,`Tippe auf ${n} <b style="color:${c.c}">${inf(c.de,'e')}</b> Jacken!`));
+  say(m);
+}
+$('#gRepeat').addEventListener('click',()=>{if(!G.busy)gonAsk();});
+function gonTap(p){
+  if(G.busy||!p.g.isConnected||p.going) return;
+  if(p.col.en===G.col.en){
+    p.going=true; G.loaded++; popS(); const n=G.loaded;
+    say(L(cap(NUM_EN[n])+'!',cap(NUM_DE[n])+'!'));
+    // Hüpfen in die Gondel
+    const x0=p.x,y0=530,x1=G.cabX,y1=G.cabY+120,t0=performance.now();
+    const step=now=>{const k=Math.min(1,(now-t0)/700);const x=x0+(x1-x0)*k,y=y0+(y1-y0)*k-Math.sin(k*Math.PI)*120;
+      p.g.setAttribute('transform',`translate(${x},${y}) scale(${1-.65*k})`);
+      if(k<1) requestAnimationFrame(step); else { p.g.remove();
+        const i=G.loaded-1; const f=el('text',{x:-30+i*20,y:86,'font-size':22,'text-anchor':'middle'},G.cabFaces); f.textContent='🙂';
+        if(G.loaded>=G.need) gonDepart(); } };
+    requestAnimationFrame(step);
+  } else {
+    p.g.classList.remove('wrong');void p.g.getBBox();p.g.classList.add('wrong');boing();
+    say(L(`That jacket is ${p.col.en}. We need ${G.col.en}!`,`Diese Jacke ist ${p.col.de}. Wir brauchen ${G.col.de}!`));
+  }
+}
+function gonDepart(){
+  G.busy=true; const tok=G.tok; success(); setTimeout(charSfx,250);
+  G.stars++; drawGStars();
+  say(L('Doors closing. Up we go!','Türen schliessen. Ab nach oben!'));
+  setTimeout(()=>{ if(tok!==G.tok) return; horn('gondel');
+    gonAnim(k=>gl(GA,GB,k),3800,()=>{ if(tok!==G.tok) return;
+      const fxg=$('#gfx'); const st=el('text',{x:GB[0],y:GB[1]+30,'font-size':54,'text-anchor':'middle'},fxg); st.textContent='⭐';
+      setTimeout(()=>st.remove(),900); $('#gcab').innerHTML='';
+      if(G.stars>=5){
+        const up=G.lv<3;
+        celebrate(up?L(`Super! Five stars! Next level: the gondolas get bigger!`,`Super! Fünf Sterne! Nächstes Level: Die Gondeln werden grösser!`):L('Super! You are the best gondola driver!','Super! Du bist der beste Gondelbahn-Chef!'),()=>{
+          if(tok!==G.tok) return; if(up)G.lv++; G.stars=0; drawGStars(); gonRound();});
+      } else say(pick([L('Welcome to the top of the mountain!','Willkommen oben auf dem Berg!'),L('They are skiing down now. Wheee!','Jetzt fahren sie Ski. Juhui!')]),()=>{if(tok===G.tok)gonRound();});
+    });
+  },1200);
+}
+
+/* ================= SCHIFF-SPIEL ================= */
+const SH={raf:0,tok:0,lv:1,stars:0};
+function openShip(){
+  show('ship'); SH.tok++; Object.assign(SH,{stars:0,lane:1,x:null,waves:[],scroll:0,t:0,q:null,waveDelay:2.2,splash:[],bump:0,ducks:[],paddleT:0});
+  shipResize(); drawSStars(); shipNewQ(true);
+  cancelAnimationFrame(SH.raf); SH.last=performance.now(); SH.raf=requestAnimationFrame(shipLoop);
+}
+function shipStop(){cancelAnimationFrame(SH.raf);SH.raf=0;SH.tok++;}
+function shipResize(){
+  const cv=$('#scanvas'); SH.W=innerWidth; SH.H=innerHeight; SH.dpr=Math.min(2,devicePixelRatio||1);
+  cv.width=Math.round(SH.W*SH.dpr); cv.height=Math.round(SH.H*SH.dpr); SH.ctx=cv.getContext('2d'); SH.ctx.setTransform(SH.dpr,0,0,SH.dpr,0,0);
+  SH.laneW=Math.min(SH.W*.27,280); SH.shipY=SH.H*.72; SH.shipL=Math.min(SH.H*.22,190);
+}
+addEventListener('resize',()=>{if(current==='ship')shipResize();});
+const laneX=i=>SH.W/2+(i-1)*SH.laneW;
+function drawSStars(){$('#sStars').innerHTML=Array.from({length:5},(_,i)=>`<span class="${i<SH.stars?'on':''}">★</span>`).join('')+`<span class="lvl">Level ${SH.lv}</span>`;}
+function shipNewQ(first){
+  let q;
+  if(SH.lv===1){const n=1+Math.floor(Math.random()*5);q={ans:n,html:'🦆'.repeat(n),say:L('How many ducks? Sail to the right number!','Wie viele Enten? Fahr zur richtigen Zahl!')};}
+  else if(SH.lv===2){const a=1+Math.floor(Math.random()*5),b=1+Math.floor(Math.random()*5);q={ans:a+b,html:`${a} + ${b} = ?`,say:L(`What is ${a} plus ${b}?`,`Wie viel ist ${a} plus ${b}?`)};}
+  else {const a=3+Math.floor(Math.random()*8),b=1+Math.floor(Math.random()*(a-1));q={ans:a-b,html:`${a} − ${b} = ?`,say:L(`What is ${a} minus ${b}?`,`Wie viel ist ${a} minus ${b}?`)};}
+  SH.q=q; const qb=$('#sQ'); qb.innerHTML=q.html; qb.classList.remove('pop'); void qb.offsetWidth; qb.classList.add('pop');
+  SH.waveDelay=first?3.5:2.2; SH.waves=[];
+  say(first?join(L('Ahoy captain! Tap left or right to steer.','Ahoi Kapitän! Tippe links oder rechts zum Steuern.'),q.say):q.say);
+}
+function shipWave(){
+  const a=SH.q.ans, o=new Set([a]); for(const c of shuffle([a-1,a+1,a-2,a+2,a+3])){if(o.size>=3)break;if(c>=0)o.add(c);}
+  SH.waves.push({y:-70,vals:shuffle([...o]),done:false});
+}
+$('#scanvas').addEventListener('pointerdown',e=>{e.preventDefault(); if(current!=='ship')return;
+  let best=0,bd=1e9; for(let i=0;i<3;i++){const d=Math.abs(e.clientX-laneX(i));if(d<bd){bd=d;best=i;}}
+  if(best===SH.lane) return; SH.lane=best; noise(.06,800,.25);});
+$('#sHorn').addEventListener('pointerdown',e=>{e.preventDefault();unlock();horn('ship');});
+function shipLoop(now){
+  const dt=Math.min(.05,(now-SH.last)/1000); SH.last=now; SH.t+=dt;
+  const speed=SH.H*.13*(1+.15*(SH.lv-1));
+  SH.scroll+=speed*dt;
+  const tx=laneX(SH.lane); if(SH.x===null)SH.x=tx; SH.x+=(tx-SH.x)*Math.min(1,dt*5);
+  SH.paddleT-=dt; if(SH.paddleT<=0){SH.paddleT=.45;noise(.035,380,.3);}
+  if(SH.waves.length===0){SH.waveDelay-=dt;if(SH.waveDelay<=0)shipWave();}
+  for(const w of SH.waves){ w.y+=speed*dt;
+    if(!w.done&&w.y>=SH.shipY-SH.shipL*.42){ w.done=true; const v=w.vals[SH.lane];
+      for(let i=0;i<14;i++)SH.splash.push({x:SH.x,y:w.y,vx:(Math.random()-.5)*260,vy:-Math.random()*260,t:0});
+      if(v===SH.q.ans){ w.hit=SH.lane; success(); setTimeout(charSfx,250); SH.stars++; drawSStars(); const tok=SH.tok;
+        say(join(praise(),L(`${v}!`,`${v}!`)),()=>{ if(tok!==SH.tok||current!=='ship')return;
+          if(SH.stars>=5){const up=SH.lv<3;
+            celebrate(up?L('Ahoy! Five stars! Next level!','Ahoi! Fünf Sterne! Nächstes Level!'):L('You are the best captain on the lake!','Du bist der beste Kapitän auf dem See!'),()=>{
+              if(tok!==SH.tok)return; if(up)SH.lv++; SH.stars=0; drawSStars(); shipNewQ();});}
+          else shipNewQ(); });
+      } else { w.hit=SH.lane; SH.bump=.6; boing();
+        say(L(`That is ${v}. Try the next buoys!`,`Das ist ${v}. Versuch es bei den nächsten Bojen!`));
+        SH.waveDelay=1.2; }
+    } }
+  SH.waves=SH.waves.filter(w=>w.y<SH.H+80);
+  for(const p of SH.splash){p.t+=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=600*dt;} SH.splash=SH.splash.filter(p=>p.t<.8);
+  SH.bump=Math.max(0,SH.bump-dt);
+  shipDraw(); SH.raf=requestAnimationFrame(shipLoop);
+}
+function shipDraw(){
+  const c=SH.ctx,W=SH.W,H=SH.H;
+  const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,'#2f86d1');g.addColorStop(1,'#4fa8e8');c.fillStyle=g;c.fillRect(0,0,W,H);
+  // Wellen
+  c.strokeStyle='rgba(255,255,255,.35)';c.lineWidth=3;c.lineCap='round';
+  const sp=90, off=SH.scroll%sp;
+  for(let y=-sp+off;y<H+sp;y+=sp){const row=Math.round((y-off)/sp+SH.scroll/sp);for(let i=0;i<8;i++){const x=(hr(row*7+i)*1.2-.1)*W;c.beginPath();c.arc(x,y+hr(row+i)*40,14,Math.PI*1.15,Math.PI*1.85);c.stroke();}}
+  // Ufer
+  const bw=Math.max(40,(W-SH.laneW*3.4)/2);
+  [0,1].forEach(side=>{const x0=side?W-bw:0;
+    c.fillStyle='#e8d9a8';c.fillRect(side?x0-10:x0,0,bw+10,H);c.fillStyle='#7cc35a';c.fillRect(side?x0+8:x0,0,bw-8,H);
+    c.textAlign='center';c.textBaseline='middle';
+    const sp2=140,o2=SH.scroll%sp2;for(let y=-sp2+o2;y<H+sp2;y+=sp2){const row=Math.round((y-o2)/sp2+SH.scroll/sp2)+side*999;
+      const e=['🌲','🌳','🏡','🌲','🐄','⛪','🌲','🌳'][Math.floor(hr(row)*8)];emoji(c,e,x0+bw*(side?.55:.45),y,Math.min(52,bw*.7));}});
+  // Spurhilfen
+  c.strokeStyle='rgba(255,255,255,.12)';c.setLineDash([16,22]);c.lineWidth=4;[0,1,2].forEach(i=>{c.beginPath();c.moveTo(laneX(i),0);c.lineTo(laneX(i),H);c.stroke();});c.setLineDash([]);
+  // Bojen
+  const r=Math.min(SH.laneW*.3,54);
+  for(const w of SH.waves){ w.vals.forEach((v,i)=>{ if(w.hit===i&&w.done) return; const x=laneX(i), y=w.y+Math.sin(SH.t*3+i)*4;
+      c.fillStyle='rgba(0,0,0,.15)';c.beginPath();c.ellipse(x+4,y+r*.75,r*.9,r*.25,0,0,7);c.fill();
+      c.fillStyle='#e2001a';c.beginPath();c.arc(x,y,r,0,7);c.fill();
+      c.fillStyle='#fff';c.fillRect(x-r,y-r*.22,r*2,r*.44);c.beginPath();c.arc(x,y,r*.62,0,7);c.fill();
+      c.strokeStyle='#b0001a';c.lineWidth=3;c.beginPath();c.arc(x,y,r,0,7);c.stroke();
+      c.fillStyle='#1d2b3a';c.font=`700 ${r*.85}px Fredoka, sans-serif`;c.textAlign='center';c.textBaseline='middle';c.fillText(v,x,y+2); }); }
+  // Schiff (von oben)
+  const L=SH.shipL, Wd=L*.36, x=SH.x+(SH.bump?Math.sin(SH.t*40)*6*SH.bump:0), y=SH.shipY;
+  c.strokeStyle='rgba(255,255,255,.55)';c.lineWidth=5;c.beginPath();c.moveTo(x-Wd*.35,y+L*.5);c.lineTo(x-Wd*1.6,y+L*1.6);c.moveTo(x+Wd*.35,y+L*.5);c.lineTo(x+Wd*1.6,y+L*1.6);c.stroke();
+  c.fillStyle='#e6e6e6';c.strokeStyle='#999';c.lineWidth=2;
+  [-1,1].forEach(sd=>{c.beginPath();c.ellipse(x+sd*Wd*.62,y+L*.05,Wd*.22,L*.13,0,0,7);c.fill();c.stroke();});
+  c.fillStyle='#fafafa';c.beginPath();c.moveTo(x,y-L*.5);c.quadraticCurveTo(x+Wd*.62,y-L*.25,x+Wd*.5,y+L*.38);c.quadraticCurveTo(x,y+L*.52,x-Wd*.5,y+L*.38);c.quadraticCurveTo(x-Wd*.62,y-L*.25,x,y-L*.5);c.fill();c.stroke();
+  c.fillStyle='#b98a55';c.beginPath();c.roundRect?c.roundRect(x-Wd*.32,y-L*.22,Wd*.64,L*.52,8):c.rect(x-Wd*.32,y-L*.22,Wd*.64,L*.52);c.fill();
+  c.fillStyle='#fafafa';c.fillRect(x-Wd*.24,y-L*.12,Wd*.48,L*.3);
+  c.fillStyle='#222';c.beginPath();c.arc(x,y+L*.0,Wd*.17,0,7);c.fill();c.fillStyle='#f2c230';c.beginPath();c.arc(x,y,Wd*.12,0,7);c.fill();
+  c.fillStyle='#e2001a';c.fillRect(x-Wd*.12,y+L*.4,Wd*.24,Wd*.24);c.fillStyle='#fff';c.fillRect(x-Wd*.03,y+L*.4+Wd*.04,Wd*.06,Wd*.16);c.fillRect(x-Wd*.08,y+L*.4+Wd*.09,Wd*.16,Wd*.06);
+  // Spritzer
+  c.fillStyle='rgba(255,255,255,.9)';for(const p of SH.splash){c.beginPath();c.arc(p.x,p.y,6*(1-p.t),0,7);c.fill();}
+}
+
 /* ================= LOKFÜHRER ================= */
-const CITIES=['Zurich','Bern','Basel','Lucerne','St. Gallen','Geneva','Lausanne','Lugano','Chur','Interlaken','Winterthur','Zermatt','Brig','Arth-Goldau','Thun','Olten','Fribourg','Schaffhausen','Bellinzona','Biel','Andermatt','Montreux'];
+const CITIES=[['Zurich','Zürich'],['Bern','Bern'],['Basel','Basel'],['Lucerne','Luzern'],['St. Gallen','St. Gallen'],['Geneva','Genf'],['Lausanne','Lausanne'],['Lugano','Lugano'],['Chur','Chur'],['Interlaken','Interlaken'],['Winterthur','Winterthur'],['Zermatt','Zermatt'],['Brig','Brig'],['Arth-Goldau','Arth-Goldau'],['Thun','Thun'],['Olten','Olten'],['Fribourg','Fribourg'],['Schaffhausen','Schaffhausen'],['Bellinzona','Bellinzona'],['Biel','Biel'],['Andermatt','Andermatt'],['Montreux','Montreux']];
 const PEOPLE=['🧒','👧','👦','👩','👨','👵','👴','🧑','👱‍♀️','🐕','🧑‍🦰','👩‍🦳','🧔'];
 const MAX=420, ACC=150, BRK=280, PMAX=1000;
 const D={raf:0,tok:0};
@@ -906,20 +1315,21 @@ function openDriveSelect(){
     c.addEventListener('click',()=>{hush();horn(t.id);driveStart(t.id);});
     g.appendChild(c);
   });
-  g.scrollTop=0; say('Which train do you want to drive?');
+  g.scrollTop=0; say(L('Which train do you want to drive?','Mit welchem Zug willst du fahren?'));
 }
 
 function driveStart(id){
-  Object.assign(D,{id,pos:0,speed:0,mode:'idle',stations:[],tunnels:[],genX:1400,people:[],floats:[],count:0,nextMile:10,boarding:null,
+  Object.assign(D,{asking:false,mathRight:0,wasMoving:false,id,pos:0,speed:0,mode:'idle',stations:[],tunnels:[],genX:1400,people:[],floats:[],count:0,nextMile:10,boarding:null,
     smoke:[],smokeT:0,time:0,names:shuffle(CITIES.slice()),ni:0,bannerT:0,hint:false,dark:0,tunnelSaid:0,lights:false,lightHint:false,tok:D.tok+1,lastStep:0});
   show('drive'); driveResize();
   $('#dCount').textContent='0'; $('#bLight').classList.remove('on','pulse'); setGo(true); $('#bGo').classList.add('pulse'); $('#bBrake').classList.remove('pulse');
-  $('#dBanner').classList.remove('show');
+  $('#dBanner').classList.remove('show'); $('#mathBox').classList.remove('show');
+  engineStart(id==='dampf');
   cancelAnimationFrame(D.raf); D.last=performance.now(); D.raf=requestAnimationFrame(driveLoop);
   const tok=D.tok;
-  setTimeout(()=>{if(current==='drive'&&tok===D.tok) say('All aboard! Press the green button to go.');},1000);
+  setTimeout(()=>{if(current==='drive'&&tok===D.tok) say(L('All aboard! Press the green button to go.','Einsteigen bitte! Drück den grünen Knopf, dann fährt der Zug los.'));},1000);
 }
-function driveStop(){cancelAnimationFrame(D.raf);D.raf=0;}
+function driveStop(){cancelAnimationFrame(D.raf);D.raf=0;engineStop();}
 function driveResize(){
   const cv=$('#dcanvas'); D.W=innerWidth; D.H=innerHeight; D.dpr=Math.min(2,devicePixelRatio||1);
   cv.width=Math.round(D.W*D.dpr); cv.height=Math.round(D.H*D.dpr);
@@ -943,13 +1353,14 @@ press($('#bHorn'),()=>horn(D.id));
 press($('#bLight'),()=>{
   D.lights=!D.lights; $('#bLight').classList.toggle('on',D.lights); $('#bLight').classList.remove('pulse'); D.lightHint=false;
   tone(D.lights?1400:900,.08,{type:'square',vol:.08}); tone(D.lights?1800:600,.08,{type:'square',vol:.08,when:.07});
-  say(D.lights?'Lights on!':'Lights off!');
+  say(D.lights?L('Lights on!','Licht an!'):L('Lights off!','Licht aus!'));
 });
 $('#dcanvas').addEventListener('pointerdown',e=>e.preventDefault());
 
 function genUntil(limit){
   while(D.genX<limit){
-    D.stations.push({x:D.genX,name:D.names[D.ni++%D.names.length],done:false,announced:false,missed:false});
+    const cn=D.names[D.ni++%D.names.length];
+    D.stations.push({x:D.genX,name:cn[1],nameEn:cn[0],done:false,announced:false,missed:false});
     D.genX+=PMAX+500+Math.random()*500;
     if(Math.random()<.6){const len=D.trainW+350+Math.random()*450;D.tunnels.push({x:D.genX,len,said:false});D.genX+=len+800+Math.random()*500;}
     else D.genX+=700+Math.random()*700;
@@ -977,10 +1388,12 @@ function updateDrive(dt){
   genUntil(D.pos+D.W*3);
 
   // Fahrgeräusch
-  const steam=D.id==='dampf', step=steam?70:120;
-  if(Math.floor(D.pos/step)!==Math.floor(prev/step)&&D.speed>20){
-    const v=.04+.12*D.speed/MAX;
-    if(steam) noise(v*1.4,500,.2); else {noise(v,2600,.04);noise(v,2600,.04,.08);}
+  const steam=D.id==='dampf';
+  if(steam){ if(Math.floor(D.pos/60)!==Math.floor(prev/60)&&D.speed>8){D.chuff=(D.chuff||0)+1;const v=(.08+.14*D.speed/MAX)*(D.chuff%2?1:.6);
+      noise(v,750,.2);noise(v*.8,260,.14);tone(70,.12,{vol:v*.9,slideTo:45});} }
+  else if(Math.floor(D.pos/220)!==Math.floor(prev/220)&&D.speed>15){
+    const v=.05+.15*D.speed/MAX, a=D.trainH*.32/D.speed, car=D.trainW*.48/D.speed;
+    [0,a,car,car+a].forEach(w=>{if(w<1.4)clunk(v,w);});
   }
 
   const front=D.pos+D.trainLeft+D.trainW, center=D.pos+D.trainLeft+D.trainW/2;
@@ -990,11 +1403,11 @@ function updateDrive(dt){
     const dist=s.x-front;
     if(!s.announced&&dist<1600){
       s.announced=true; gong(); const tok=D.tok;
-      setTimeout(()=>{if(tok===D.tok&&current==='drive') say(`Next stop: ${s.name}.`);},1100);
-      $('#dBanner').innerHTML=`<small>Next stop</small>${s.name}`; $('#dBanner').classList.add('show'); D.bannerT=5;
+      setTimeout(()=>{if(tok===D.tok&&current==='drive') say(L(`Next stop: ${s.nameEn}.`,`Nächster Halt: ${s.name}.`));},1100);
+      $('#dBanner').innerHTML=`<small>${LANG==='en'?'Next stop':LANG==='de'?'Nächster Halt':'Next stop · Nächster Halt'}</small>${s.name}`; $('#dBanner').classList.add('show'); D.bannerT=5;
     }
     if(dist<650&&center<s.x+D.P&&D.speed>0&&D.mode!=='brake') hint=true;
-    if(!D.boarding&&center>s.x+D.P+20){ s.missed=true; say('Oops, we went past it! Press stop a bit earlier next time.'); }
+    if(!D.boarding&&center>s.x+D.P+20){ s.missed=true; say(L('Oops, we went past it! Press stop a bit earlier next time.','Hoppla, vorbeigefahren! Drück beim nächsten Bahnhof früher auf Stopp.')); }
     else if(D.speed===0&&!D.boarding&&Math.abs((s.x+D.P/2)-center)<D.P/2) startBoarding(s);
   }
   if(hint!==D.hint){D.hint=hint;$('#bBrake').classList.toggle('pulse',hint);}
@@ -1004,26 +1417,33 @@ function updateDrive(dt){
   let inT=false;
   for(const t of D.tunnels){
     if(center>t.x&&center<t.x+t.len) inT=true;
-    if(!t.said&&front>t.x-250&&front<t.x+t.len){t.said=true;if(D.tunnelSaid<4){D.tunnelSaid++;say(D.lights?'Whoosh, a tunnel!':'Whoosh, a tunnel! It is dark. Turn on the lights!');}}
+    if(!t.said&&front>t.x-250&&front<t.x+t.len){t.said=true;if(D.tunnelSaid<4){D.tunnelSaid++;say(D.lights?L('Whoosh, a tunnel!','Huiii, ein Tunnel!'):L('Whoosh, a tunnel! It is dark. Turn on the lights!','Huiii, ein Tunnel! Es ist dunkel. Mach das Licht an!'));}}
   }
   D.dark+=((inT?1:0)-D.dark)*Math.min(1,dt*4);
   const want=inT&&!D.lights; if(want!==D.lightHint){D.lightHint=want;$('#bLight').classList.toggle('pulse',want);}
 
-  // Fahrgäste
+  // Fahrgäste (aus- und einsteigen)
   for(const p of D.people){
     p.t=(p.t||0)+dt;
     if(p.delay>0){p.delay-=dt;continue;}
-    const d=p.door-p.x, st=Math.min(Math.abs(d),D.trainH*1.7*dt);
+    if(!p.started){p.started=true;
+      if(p.kind==='off'){D.mOff++;tone(500,.12,{slideTo:250,vol:.14});D.floats.push({x:p.x,t:0,txt:'−1',col:'226,0,26'});updateMathBox();}}
+    const d=p.target-p.x, st=Math.min(Math.abs(d),D.trainH*1.7*dt);
     p.x+=Math.sign(d)*st; p.walking=true;
-    if(Math.abs(p.door-p.x)<1){
-      p.gone=true; D.count++; popS(); D.floats.push({x:p.x,t:0});
-      $('#dCount').textContent=D.count; const ce=$('#dCounter'); ce.classList.remove('pop'); void ce.offsetWidth; ce.classList.add('pop');
+    if(Math.abs(p.target-p.x)<1){
+      if(p.kind==='on'){p.gone=true;D.mOn++;popS();D.floats.push({x:p.x,t:0,txt:'+1',col:'34,177,76'});updateMathBox();}
+      else {p.fade=(p.fade===undefined?1:p.fade)-dt*2.5;if(p.fade<=0)p.gone=true;}
     }
   }
   D.people=D.people.filter(p=>!p.gone);
-  if(D.boarding&&D.people.length===0) finishBoarding();
+  if(D.boarding&&D.people.length===0&&!D.asking) askMath();
   for(const f of D.floats) f.t+=dt;
   D.floats=D.floats.filter(f=>f.t<1.2);
+
+  // Stopp-Zischen
+  if(D.speed===0&&D.wasMoving){D.wasMoving=false;noise(.12,4500,.8);}
+  if(D.speed>8) D.wasMoving=true;
+  engineUpdate(D.speed,D.mode,D.dark);
 
   // Rauch
   if(D.id==='dampf'){
@@ -1035,21 +1455,77 @@ function updateDrive(dt){
   }
 }
 
+const nWord=(n,one,many)=>n===1?one:many;
 function startBoarding(s){
-  D.boarding=s; s.done=true; D.mode='idle'; setGo(false); doorChime();
-  const n=2+Math.floor(Math.random()*3), left=D.pos+D.trainLeft;
-  for(let i=0;i<n;i++){
-    const door=left+D.trainW*(.2+.6*Math.random());
-    D.people.push({x:s.x+40+Math.random()*(D.P-80),door,e:pick(PEOPLE),delay:.6+i*.6});
+  D.boarding=s; s.done=true; D.mode='idle'; D.asking=false; setGo(false); doorChime();
+  D.mBefore=D.count; D.mOff=0; D.mOn=0;
+  let off=D.count>0?1+Math.floor(Math.random()*Math.min(3,D.count)):0;
+  let on=1+Math.floor(Math.random()*4);
+  while(D.count-off+on>15&&off<D.count) off++;
+  if(D.count-off+on>15) on=Math.max(0,15-(D.count-off));
+  D.planOff=off; D.planOn=on;
+  const left=D.pos+D.trainLeft;
+  for(let i=0;i<off;i++){
+    const door=left+D.trainW*(.2+.6*Math.random()), dir=Math.random()<.5?-1:1;
+    D.people.push({kind:'off',x:door,target:door+dir*(D.trainH*(.8+Math.random()*1.2)),e:pick(PEOPLE),delay:.7+i*.75});
   }
-  say(`${s.name}. All aboard!`);
+  for(let i=0;i<on;i++){
+    const door=left+D.trainW*(.2+.6*Math.random());
+    D.people.push({kind:'on',x:s.x+40+Math.random()*(D.P-80),target:door,e:pick(PEOPLE),delay:.9+off*.75+.6+i*.75});
+  }
+  $('#dCount').textContent='?';
+  updateMathBox(); $('#mQ').innerHTML=T(L('Watch carefully!','Schau genau hin!')); $('#mOpts').innerHTML=''; $('#mathBox').classList.add('show');
+  say(L(`${s.nameEn}. Watch who gets off and who gets on!`,`${s.name}. Schau, wer aussteigt und wer einsteigt!`));
+}
+function updateMathBox(){
+  if(!D.boarding) return;
+  let h=`🧍${D.mBefore}`;
+  if(D.mOff>0) h+=` <span class="mi">− ${D.mOff}</span>`;
+  if(D.mOn>0) h+=` <span class="pl2">+ ${D.mOn}</span>`;
+  if(D.asking) h+=` = <span class="q">?</span>`;
+  $('#mEq').innerHTML=h;
+}
+function askMath(){
+  D.asking=true; D.mTries=0; updateMathBox();
+  const b=D.mBefore, off=D.mOff, on=D.mOn, ans=b-off+on; D.mAns=ans;
+  let q;
+  const offS=L(`${off} ${nWord(off,'person','people')} got off.`,`${off} ${nWord(off,'Person ist','Personen sind')} ausgestiegen.`);
+  const onS=L(`${on} ${nWord(on,'person','people')} got on.`,`${on} ${nWord(on,'Person ist','Personen sind')} eingestiegen.`);
+  if(b===0){ q=join(onS,L('How many passengers are on the train now?','Wie viele Fahrgäste sind jetzt im Zug?')); }
+  else q=join(L(`There were ${b} passengers.`,`Im Zug waren ${b} Fahrgäste.`),off?offS:L('',''),onS,L('How many are on the train now?','Wie viele sind jetzt im Zug?'));
+  $('#mQ').innerHTML=T(L('How many are on the train now?','Wie viele sind jetzt im Zug?'));
+  const opts=new Set([ans]); const cands=shuffle([ans-1,ans+1,ans-2,ans+2,ans+3]).filter(x=>x>=0);
+  for(const c of cands){if(opts.size>=3)break;opts.add(c);}
+  const box=$('#mOpts'); box.innerHTML='';
+  shuffle([...opts]).forEach(v=>{const bt=document.createElement('button');bt.textContent=v;bt.dataset.v=v;
+    bt.addEventListener('pointerdown',e=>{e.preventDefault();mathAnswer(bt,v);});box.appendChild(bt);});
+  say(q);
+}
+function mathAnswer(bt,v){
+  if(!D.asking||bt.classList.contains('no')) return;
+  const b=D.mBefore, off=D.mOff, on=D.mOn, ans=D.mAns;
+  const expl=b===0?L(`${on} people got on, so ${ans} are on the train.`,`${on} sind eingestiegen, also sind ${ans} im Zug.`)
+    :L(`${b} minus ${off} plus ${on} makes ${ans}.`,`${b} minus ${off} plus ${on} gibt ${ans}.`);
+  if(v===ans){
+    D.asking=false; bt.classList.add('yes'); success(); setTimeout(charSfx,250);
+    updateMathBox(); $('#mEq').innerHTML+=` = <span class="pl2">${ans}</span>`;
+    D.count=ans; $('#dCount').textContent=D.count; const ce=$('#dCounter'); ce.classList.remove('pop'); void ce.offsetWidth; ce.classList.add('pop');
+    D.mathRight=(D.mathRight||0)+1;
+    say(join(praise(),expl),()=>{ if(current==='drive') finishBoarding(); });
+  } else {
+    D.mTries++; bt.classList.add('no'); boing();
+    if(D.mTries>=2){ const r=$(`#mOpts button[data-v="${ans}"]`); if(r) r.classList.add('help');
+      say(join(L('Let\'s count together.','Wir rechnen zusammen.'),expl)); }
+    else say(L('Not quite. Try again!','Nicht ganz. Versuch es nochmal!'));
+  }
 }
 function finishBoarding(){
-  D.boarding=null; setGo(true); $('#bGo').classList.add('pulse'); $('#dBanner').classList.remove('show');
-  if(D.count>=D.nextMile){
-    while(D.nextMile<=D.count) D.nextMile+=10;
-    burst(); fanfare(); setTimeout(()=>say(`Wow! Already ${D.count} passengers on the train! Let's go!`),400);
-  } else say(pick(['Everyone is on board. Doors closing!','All in! Off we go!','Doors closing. Let\'s go!']));
+  D.boarding=null; D.asking=false; setGo(true); $('#bGo').classList.add('pulse'); $('#dBanner').classList.remove('show');
+  setTimeout(()=>$('#mathBox').classList.remove('show'),600);
+  [0,.28,.56].forEach(w=>tone(1050,.14,{type:'square',vol:.06,when:w}));
+  if(D.mathRight&&D.mathRight%5===0){
+    burst(); fanfare(); setTimeout(()=>say(L(`Wow! ${D.mathRight} sums right! You are a super conductor!`,`Wow! ${D.mathRight} Rechnungen richtig! Du bist ein super Kondukteur!`)),400);
+  } else setTimeout(()=>say(pick([L('Doors closing. Let\'s go!','Türen schliessen. Weiterfahren!'),L('All in! Off we go!','Alle drin! Los geht\'s!')])),800);
 }
 
 /* ---------- Zeichnen ---------- */
@@ -1164,12 +1640,14 @@ function drawDrive(){
   }
   const pt=ty-th*.08+th*.02;
   for(const p of D.people){
+    if(p.kind==='off'&&!p.started) continue;
     const hop=p.walking?Math.abs(Math.sin(p.t*11))*th*.05:0;
-    emoji(c,p.e,p.x-pos,pt-hop,th*.34);
+    c.globalAlpha=p.fade===undefined?1:Math.max(0,p.fade);
+    emoji(c,p.e,p.x-pos,pt-hop,th*.34); c.globalAlpha=1;
   }
   c.font=`700 ${th*.22}px Fredoka, sans-serif`;
-  for(const f of D.floats){c.fillStyle=`rgba(255,200,0,${1-f.t/1.2})`;c.strokeStyle=`rgba(0,0,0,${.5*(1-f.t/1.2)})`;c.lineWidth=3;
-    const y=ty-th*.6-f.t*th*.6;c.strokeText('+1',f.x-pos,y);c.fillText('+1',f.x-pos,y);}
+  for(const f of D.floats){const a=1-f.t/1.2;c.fillStyle=`rgba(${f.col||'255,200,0'},${a})`;c.strokeStyle=`rgba(255,255,255,${a})`;c.lineWidth=5;
+    const y=ty-th*.6-f.t*th*.6;c.strokeText(f.txt||'+1',f.x-pos,y);c.fillText(f.txt||'+1',f.x-pos,y);}
 
   // Tunnel-Dunkelheit
   if(D.dark>.02){c.fillStyle=`rgba(5,8,25,${D.dark*.72})`;c.fillRect(0,0,W,H);}
@@ -1189,6 +1667,7 @@ document.addEventListener('gesturestart',e=>e.preventDefault());
 document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('dblclick',e=>e.preventDefault());
 
+applyLang();
 // iOS Homescreen-Icon
 try{const ic=document.createElement('canvas');ic.width=ic.height=180;const x=ic.getContext('2d');x.fillStyle='#e2001a';x.fillRect(0,0,180,180);
   const im=new Image();im.onload=()=>{x.fillStyle='#bfe6ff';x.fillRect(0,110,180,70);x.drawImage(im,-20,48,240,87);
